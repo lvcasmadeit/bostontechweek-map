@@ -2,14 +2,17 @@
 
 :root {
   --color-dark-bg: #0a0a0a;
-  --color-dark-surface: #1a1a1a;
+  --color-dark-surface: #1f1f1f;
   --color-dark-panel: #111111;
-  --color-dark-border: rgba(240, 240, 240, 0.12);
-  --color-neon-green: #a3ff4d;
-  --color-neon-green-soft: #39ff14;
+  --color-dark-elevated: #171717;
+  --color-dark-border: rgba(240, 240, 240, 0.1);
+  --color-neon-green: #39ff14;
+  --color-neon-green-soft: #a3ff4d;
+  --color-neon-green-muted: rgba(57, 255, 20, 0.12);
   --color-text-primary: #f0f0f0;
   --color-text-secondary: #aaaaaa;
-  --shadow-neon: 0 0 28px rgba(163, 255, 77, 0.24);
+  --color-text-muted: #707070;
+  --shadow-neon: 0 0 28px rgba(57, 255, 20, 0.22);
 }
 
 @theme inline {
@@ -18,18 +21,22 @@
   --color-dark-bg: var(--color-dark-bg);
   --color-dark-surface: var(--color-dark-surface);
   --color-dark-panel: var(--color-dark-panel);
+  --color-dark-elevated: var(--color-dark-elevated);
   --color-dark-border: var(--color-dark-border);
   --color-neon-green: var(--color-neon-green);
   --color-neon-green-soft: var(--color-neon-green-soft);
+  --color-neon-green-muted: var(--color-neon-green-muted);
   --color-text-primary: var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
+  --color-text-muted: var(--color-text-muted);
   --font-sans:
     Inter, system-ui, -apple-system, blinkmacsystemfont, "segoe ui", sans-serif;
-  --radius-tech: 0.5rem;
-  --shadow-neon-soft: 0 0 24px rgba(163, 255, 77, 0.2);
+  --radius-tech: 0.375rem;
+  --shadow-neon-soft: 0 0 22px rgba(57, 255, 20, 0.18);
   --shadow-neon-ring:
-    0 0 0 1px rgba(163, 255, 77, 0.55),
+    0 0 0 1px rgba(57, 255, 20, 0.58),
     0 0 28px rgba(57, 255, 20, 0.22);
+  --shadow-panel-hard: 0 18px 60px rgba(0, 0, 0, 0.42);
 }
 
 * {
@@ -44,10 +51,10 @@ html {
 body {
   margin: 0;
   background:
-    linear-gradient(rgba(163, 255, 77, 0.035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(163, 255, 77, 0.035) 1px, transparent 1px),
+    linear-gradient(rgba(57, 255, 20, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57, 255, 20, 0.022) 1px, transparent 1px),
     var(--color-dark-bg);
-  background-size: 48px 48px;
+  background-size: 56px 56px;
   color: var(--color-text-primary);
   font-family: Inter, system-ui, -apple-system, blinkmacsystemfont, "segoe ui",
     sans-serif;
@@ -75,20 +82,20 @@ input {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(163, 255, 77, 0.35);
+  background: rgba(57, 255, 20, 0.34);
   border: 2px solid #080808;
-  border-radius: 999px;
+  border-radius: 4px;
 }
 
 .map-grid {
   background-image:
-    linear-gradient(rgba(163, 255, 77, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(163, 255, 77, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba(57, 255, 20, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57, 255, 20, 0.08) 1px, transparent 1px);
   background-size: 42px 42px;
 }
 
 .tech-week-map-popup .mapboxgl-popup-content {
-  border: 1px solid rgba(163, 255, 77, 0.45);
+  border: 1px solid rgba(57, 255, 20, 0.46);
   border-radius: var(--radius-tech);
   background: #050505;
   box-shadow: var(--shadow-neon-ring);
@@ -96,8 +103,8 @@ input {
 }
 
 .tech-week-map-popup .mapboxgl-popup-tip {
-  border-top-color: rgba(163, 255, 77, 0.45);
-  border-bottom-color: rgba(163, 255, 77, 0.45);
+  border-top-color: rgba(57, 255, 20, 0.46);
+  border-bottom-color: rgba(57, 255, 20, 0.46);
 }
 
 .tech-week-map-popup .mapboxgl-popup-close-button {
@@ -113,7 +120,7 @@ input {
 }
 
 .mapboxgl-ctrl-group {
-  border: 1px solid rgba(163, 255, 77, 0.22) !important;
+  border: 1px solid rgba(57, 255, 20, 0.22) !important;
   background: rgba(5, 5, 5, 0.82) !important;
   box-shadow: var(--shadow-neon-soft) !important;
 }

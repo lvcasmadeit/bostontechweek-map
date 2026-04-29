@@ -36,9 +36,9 @@ const MAPBOX_TOKEN =
 const BOSTON_VIEW_STATE = {
   longitude: -71.0589,
   latitude: 42.3601,
-  zoom: 11.25,
-  pitch: 42,
-  bearing: -12,
+  zoom: 11.4,
+  pitch: 50,
+  bearing: -14,
 };
 
 const EVENT_SOURCE_ID = "boston-tech-week-events";
@@ -163,8 +163,9 @@ export function MapView({
 
   return (
     <section
-      className={`relative min-h-[420px] overflow-hidden rounded-tech border border-dark-border bg-[#050805] shadow-2xl md:min-h-[calc(100vh-12rem)] ${className}`}
+      className={`relative min-h-[520px] overflow-hidden rounded-tech border border-dark-border bg-[#050805] shadow-panel-hard md:min-h-[calc(100vh-10rem)] ${className}`}
     >
+      <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(10,10,10,0.28),transparent_24%,transparent_72%,rgba(10,10,10,0.34)),radial-gradient(circle_at_50%_30%,rgba(57,255,20,0.08),transparent_34%)]" />
       <MapboxMap
         ref={mapRef}
         mapboxAccessToken={MAPBOX_TOKEN}
@@ -195,17 +196,17 @@ export function MapView({
               "circle-color": [
                 "step",
                 ["get", "point_count"],
-                "#a3ff4d",
-                6,
-                "#7cff2f",
-                12,
                 "#39ff14",
+                6,
+                "#67ff3d",
+                12,
+                "#a3ff4d",
               ],
-              "circle-radius": ["step", ["get", "point_count"], 20, 6, 26, 12, 34],
+              "circle-radius": ["step", ["get", "point_count"], 18, 6, 25, 12, 33],
               "circle-stroke-width": 2,
               "circle-stroke-color": "#0a0a0a",
-              "circle-opacity": 0.92,
-              "circle-blur": 0.02,
+              "circle-opacity": 0.9,
+              "circle-blur": 0.03,
             }}
           />
           <Layer
@@ -226,11 +227,17 @@ export function MapView({
             type="circle"
             filter={["!", ["has", "point_count"]]}
             paint={{
-              "circle-color": "#a3ff4d",
-              "circle-radius": 8,
+              "circle-color": "#39ff14",
+              "circle-radius": [
+                "case",
+                ["==", ["get", "eventId"], selectedEventId],
+                10,
+                7,
+              ],
               "circle-stroke-width": 2,
-              "circle-stroke-color": "#050505",
-              "circle-opacity": 0.94,
+              "circle-stroke-color": "#050805",
+              "circle-opacity": 0.95,
+              "circle-blur": 0,
             }}
           />
           <Layer
@@ -243,11 +250,11 @@ export function MapView({
             ]}
             paint={{
               "circle-color": "#39ff14",
-              "circle-radius": 15,
-              "circle-stroke-width": 3,
-              "circle-stroke-color": "#f0f0f0",
-              "circle-opacity": 0.45,
-              "circle-blur": 0.25,
+              "circle-radius": 22,
+              "circle-stroke-width": 1,
+              "circle-stroke-color": "#a3ff4d",
+              "circle-opacity": 0.34,
+              "circle-blur": 0.45,
             }}
           />
         </Source>
@@ -263,7 +270,7 @@ export function MapView({
             onClose={() => setPopupEvent(null)}
             className="tech-week-map-popup"
           >
-            <div className="min-w-[220px] max-w-[280px] bg-black text-text-primary">
+            <div className="min-w-[230px] max-w-[290px] bg-black text-text-primary">
               <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-neon-green">
                 {formatEventTime(activePopupEvent)}
               </p>
@@ -278,7 +285,7 @@ export function MapView({
                   href={activePopupEvent.registrationUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="mt-3 inline-flex rounded-full border border-neon-green/50 bg-neon-green px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-black transition hover:bg-neon-green-soft"
+                  className="mt-3 inline-flex border border-neon-green/50 bg-neon-green px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-black transition hover:bg-neon-green-soft"
                 >
                   View event
                 </a>
@@ -288,13 +295,16 @@ export function MapView({
         ) : null}
       </MapboxMap>
 
-      <div className="pointer-events-none absolute left-4 top-4 rounded-tech border border-neon-green/30 bg-black/75 px-3 py-2 shadow-neon-soft backdrop-blur">
+      <div className="pointer-events-none absolute left-4 top-4 z-20 border border-neon-green/30 bg-black/78 px-3 py-2 shadow-neon-soft backdrop-blur">
         <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-neon-green">
           Live Map
         </p>
         <p className="text-sm font-bold text-text-primary">
           Boston + Cambridge
         </p>
+      </div>
+      <div className="pointer-events-none absolute bottom-4 left-4 z-20 hidden border border-dark-border bg-black/70 px-3 py-2 text-[11px] font-bold uppercase tracking-[0.14em] text-text-secondary backdrop-blur sm:block">
+        <span className="text-neon-green">{events.length}</span> mapped events
       </div>
     </section>
   );
