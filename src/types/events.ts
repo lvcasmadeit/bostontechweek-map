@@ -14,4 +14,5 @@ export interface Event {
   description: string;
   registrationUrl?: string;
   isFree?: boolean;
+  isInviteOnly?: boolean;
 }

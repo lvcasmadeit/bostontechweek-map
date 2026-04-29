@@ -21,6 +21,11 @@ const timeFormatter = new Intl.DateTimeFormat("en-US", {
 export function EventCard({ event, isSelected, onSelect }: EventCardProps) {
   const start = new Date(event.startTime);
   const end = event.endTime ? new Date(event.endTime) : null;
+  const accessLabel = event.isInviteOnly
+    ? "Invite"
+    : event.isFree
+      ? "Free"
+      : "Paid";
 
   return (
     <button
@@ -43,7 +48,7 @@ export function EventCard({ event, isSelected, onSelect }: EventCardProps) {
           </h3>
         </div>
         <span className="shrink-0 border border-neon-green/30 bg-neon-green-muted px-2 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-neon-green">
-          {event.isFree ? "Free" : "Paid"}
+          {accessLabel}
         </span>
       </div>
 

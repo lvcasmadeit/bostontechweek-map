@@ -11,10 +11,11 @@ import MapboxMap, {
 } from "react-map-gl/mapbox";
 import type { GeoJSONSource } from "mapbox-gl";
 import type { Feature, FeatureCollection, Point } from "geojson";
+import eventsData from "@/src/data/events.json";
 import type { Event } from "@/src/types/events";
 
 type MapViewProps = {
-  events: Event[];
+  events?: Event[];
   selectedEvent?: Event | null;
   onSelectEvent?: (event: Event) => void;
   className?: string;
@@ -87,11 +88,12 @@ function createEventFeatureCollection(
 }
 
 export function MapView({
-  events,
+  events: filteredEvents,
   selectedEvent,
   onSelectEvent,
   className = "",
 }: MapViewProps) {
+  const events = filteredEvents ?? (eventsData as Event[]);
   const mapRef = useRef<MapRef>(null);
   const [popupEvent, setPopupEvent] = useState<Event | null>(
     selectedEvent ?? events[0] ?? null,
