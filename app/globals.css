@@ -23,8 +23,8 @@
   --color-neon-green-soft: var(--color-neon-green-soft);
   --color-text-primary: var(--color-text-primary);
   --color-text-secondary: var(--color-text-secondary);
-  --font-sans: Inter, "SF Pro Display", "SF Pro Text", ui-sans-serif, system-ui,
-    sans-serif;
+  --font-sans:
+    Inter, system-ui, -apple-system, blinkmacsystemfont, "segoe ui", sans-serif;
   --radius-tech: 0.5rem;
   --shadow-neon-soft: 0 0 24px rgba(163, 255, 77, 0.2);
   --shadow-neon-ring:
@@ -49,13 +49,10 @@ body {
     var(--color-dark-bg);
   background-size: 48px 48px;
   color: var(--color-text-primary);
-  font-family:
-    Inter,
-    "SF Pro Display",
-    "SF Pro Text",
-    ui-sans-serif,
-    system-ui,
+  font-family: Inter, system-ui, -apple-system, blinkmacsystemfont, "segoe ui",
     sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 button,
@@ -88,4 +85,39 @@ input {
     linear-gradient(rgba(163, 255, 77, 0.12) 1px, transparent 1px),
     linear-gradient(90deg, rgba(163, 255, 77, 0.1) 1px, transparent 1px);
   background-size: 42px 42px;
+}
+
+.tech-week-map-popup .mapboxgl-popup-content {
+  border: 1px solid rgba(163, 255, 77, 0.45);
+  border-radius: var(--radius-tech);
+  background: #050505;
+  box-shadow: var(--shadow-neon-ring);
+  padding: 1rem;
+}
+
+.tech-week-map-popup .mapboxgl-popup-tip {
+  border-top-color: rgba(163, 255, 77, 0.45);
+  border-bottom-color: rgba(163, 255, 77, 0.45);
+}
+
+.tech-week-map-popup .mapboxgl-popup-close-button {
+  color: var(--color-text-secondary);
+  font-size: 1.25rem;
+  right: 0.4rem;
+  top: 0.25rem;
+}
+
+.tech-week-map-popup .mapboxgl-popup-close-button:hover {
+  background: transparent;
+  color: var(--color-neon-green);
+}
+
+.mapboxgl-ctrl-group {
+  border: 1px solid rgba(163, 255, 77, 0.22) !important;
+  background: rgba(5, 5, 5, 0.82) !important;
+  box-shadow: var(--shadow-neon-soft) !important;
+}
+
+.mapboxgl-ctrl button {
+  filter: invert(1);
 }

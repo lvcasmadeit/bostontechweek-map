@@ -20,11 +20,10 @@ const config: Config = {
       fontFamily: {
         sans: [
           "Inter",
-          "SF Pro Display",
-          "SF Pro Text",
-          "ui-sans-serif",
           "system-ui",
-          "sans-serif",
+          "-apple-system",
+          "blinkmacsystemfont",
+          "segoe ui",
         ],
       },
       boxShadow: {

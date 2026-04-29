@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { CalendarDays, ListFilter, Map, PanelsTopLeft, X } from "lucide-react";
 import { EventCard } from "@/src/components/EventCard";
 import { EventFilters, type ActiveFilters } from "@/src/components/EventFilters";
-import { EventMap } from "@/src/components/EventMap";
+import { MapView } from "@/src/components/map/MapView";
 import eventsData from "@/src/data/events.json";
 import type { Event } from "@/src/types/events";
 
@@ -243,10 +243,10 @@ export function BostonTechWeekApp() {
               >
                 {viewMode === "map" ? (
                   <>
-                    <EventMap
+                    <MapView
                       events={filteredEvents}
                       selectedEvent={selectedEvent}
-                      onSelect={setSelectedEvent}
+                      onSelectEvent={setSelectedEvent}
                     />
                     <div className="space-y-3 xl:max-h-[calc(100vh-12rem)] xl:overflow-y-auto xl:pr-1">
                       {filteredEvents.map((event) => (
