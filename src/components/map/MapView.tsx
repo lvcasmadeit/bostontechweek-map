@@ -291,17 +291,18 @@ export function MapView({
             anchor="bottom"
             closeButton
             closeOnClick={false}
+            maxWidth="320px"
             offset={18}
             onClose={() => onSelectEvent?.(null)}
             className="tech-week-map-popup"
           >
-            <div className="min-w-[230px] max-w-[290px] bg-black text-text-primary">
+            <div className="w-[260px] max-w-full overflow-hidden bg-black text-text-primary">
               <div className="flex items-start justify-between gap-3">
-                <div>
+                <div className="min-w-0 flex-1">
                   <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-neon-green">
                     {formatEventTime(selectedEvent)}
                   </p>
-                  <h3 className="mt-2 text-sm font-black uppercase leading-tight">
+                  <h3 className="mt-2 break-words pr-1 text-sm font-black uppercase leading-tight">
                     {selectedEvent.title}
                   </h3>
                 </div>

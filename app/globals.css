@@ -99,6 +99,7 @@ input {
   border-radius: var(--radius-tech);
   background: #050505;
   box-shadow: var(--shadow-neon-ring);
+  overflow: hidden;
   padding: 1rem;
 }
 
