@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronDown, Filter, Search, X } from "lucide-react";
+import { Search } from "lucide-react";
 import filters from "@/src/data/filters.json";
 import { useState } from "react";
 
@@ -23,35 +23,30 @@ const filterSections: Array<{
   label: string;
   values: string[];
   defaultLimit: number;
-  collapsible: boolean;
 }> = [
   {
     key: "topics",
     label: "Topics",
     values: filters.topics,
     defaultLimit: 8,
-    collapsible: true,
   },
   {
     key: "neighborhoods",
     label: "Neighborhood",
     values: filters.neighborhoods,
     defaultLimit: 8,
-    collapsible: true,
   },
   {
     key: "types",
     label: "Types",
     values: filters.types,
     defaultLimit: 7,
-    collapsible: true,
   },
   {
     key: "startTimes",
     label: "Start time",
     values: filters.start_times,
     defaultLimit: filters.start_times.length,
-    collapsible: true,
   },
 ];
 
@@ -61,33 +56,20 @@ export function EventFilters({
   onQueryChange,
   onToggleFilter,
   onClear,
-  resultCount,
   className = "",
 }: EventFiltersProps) {
-  const [collapsedSections, setCollapsedSections] = useState<Record<FilterKey, boolean>>({
-    topics: false,
-    neighborhoods: false,
-    types: false,
-    startTimes: false,
-  });
   const [expandedLists, setExpandedLists] = useState<Record<FilterKey, boolean>>({
     topics: false,
     neighborhoods: false,
     types: false,
     startTimes: false,
   });
+  const [featuredOnly, setFeaturedOnly] = useState(false);
 
   const activeCount = Object.values(activeFilters).reduce(
     (total, values) => total + values.length,
     0,
   );
-
-  function toggleSection(key: FilterKey) {
-    setCollapsedSections((current) => ({
-      ...current,
-      [key]: !current[key],
-    }));
-  }
 
   function toggleList(key: FilterKey) {
     setExpandedLists((current) => ({
@@ -98,126 +80,130 @@ export function EventFilters({
 
   return (
     <aside
-      className={`flex h-full flex-col border-dark-border bg-dark-panel/95 text-text-primary shadow-panel-hard ${className}`}
+      className={`flex h-full flex-col border border-white/8 bg-[#111214] text-[#e5e7eb] shadow-[12px_0_36px_rgba(0,0,0,0.18)] ${className}`}
     >
-      <div className="border-b border-dark-border p-3">
-        <div className="mb-3 flex items-center justify-between gap-3">
-          <div>
-            <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-neon-green">
-              Build your lineup
+      <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4 pb-24 md:pb-4">
+        <section className="space-y-6">
+          <div className="border border-white/8 bg-[#0d0d0e] p-0.5">
+            <div className="grid grid-cols-2 gap-0.5">
+              <button
+                type="button"
+                aria-pressed="true"
+                className="min-h-14 bg-[#20390f] px-4 py-3 text-center text-[12px] font-medium text-[#7ccf00] transition duration-200 ease-out hover:bg-[#274715]"
+              >
+                Schedule
+              </button>
+              <button
+                type="button"
+                aria-pressed="false"
+                className="min-h-14 bg-[#090909] px-4 py-3 text-center text-[12px] font-medium text-[#f3f4f6] transition duration-200 ease-out hover:bg-[#111214]"
+              >
+                Your lineup
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-3">
+            <p className="max-w-[14ch] text-[15px] leading-8 text-[#a3a7ad]">
+              Build your week. Share when ready!
             </p>
-            <h2 className="mt-1 text-base font-bold uppercase tracking-[0.12em]">
-              Filters
-            </h2>
+            {activeCount ? (
+              <button
+                type="button"
+                onClick={onClear}
+                className="text-[12px] font-medium text-[#8f959d] transition duration-200 ease-out hover:text-[#e5e7eb]"
+              >
+                Clear all filters ({activeCount})
+              </button>
+            ) : null}
           </div>
-          <div className="flex h-8 w-8 items-center justify-center rounded-tech border border-neon-green/30 bg-neon-green-muted text-neon-green shadow-neon-soft">
-            <Filter size={16} aria-hidden />
+
+          <div className="border-t border-white/6" />
+
+          <div className="space-y-4">
+            <label className="group flex items-center gap-3 rounded-[0.35rem] border border-white/10 bg-[#1b1c1f] px-4 py-3 transition duration-200 ease-out focus-within:border-white/20 focus-within:bg-[#202226]">
+              <Search
+                size={16}
+                className="text-[#8f959d] transition duration-200 ease-out group-focus-within:text-[#d9dde3]"
+              />
+              <input
+                value={query}
+                onChange={(event) => onQueryChange(event.target.value)}
+                placeholder="Search..."
+                className="min-w-0 flex-1 bg-transparent text-[14px] text-[#e5e7eb] outline-none placeholder:text-[#8f959d]"
+              />
+            </label>
+
+            <div className="flex items-center justify-between gap-3">
+              <span className="text-[12px] text-[#9ca3af]">
+                Search featured events only
+              </span>
+              <button
+                type="button"
+                role="switch"
+                aria-checked={featuredOnly}
+                onClick={() => setFeaturedOnly((current) => !current)}
+                className={`relative h-8 w-14 rounded-full transition duration-200 ease-out ${
+                  featuredOnly ? "bg-[#1f7a4d]" : "bg-[#26282c]"
+                }`}
+              >
+                <span
+                  className={`absolute top-1 h-6 w-6 rounded-full bg-[#f3f4f6] transition duration-200 ease-out ${
+                    featuredOnly ? "left-7" : "left-1"
+                  }`}
+                />
+              </button>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <label className="group flex items-center gap-2.5 rounded-tech border border-dark-border bg-black/45 px-3 py-2 transition focus-within:border-neon-green focus-within:shadow-neon-soft">
-          <Search
-            size={15}
-            className="text-text-secondary group-focus-within:text-neon-green"
-          />
-          <input
-            value={query}
-            onChange={(event) => onQueryChange(event.target.value)}
-            placeholder="Search BOS events"
-            className="min-w-0 flex-1 bg-transparent text-[13px] text-text-primary outline-none placeholder:text-text-secondary"
-          />
-        </label>
+        <div className="mt-7 space-y-8">
+          {filterSections.map((section) => {
+            const isExpanded = expandedLists[section.key];
+            const visibleValues = isExpanded
+              ? section.values
+              : section.values.slice(0, section.defaultLimit);
 
-        <div className="mt-3 flex items-center justify-between text-[10px] uppercase tracking-[0.18em] text-text-secondary">
-          <span>{resultCount} events</span>
-          <button
-            type="button"
-            onClick={onClear}
-            className="inline-flex items-center gap-1 border border-neon-green/30 px-2 py-1 font-medium text-neon-green transition hover:border-neon-green hover:bg-neon-green-muted hover:text-neon-green-soft"
-          >
-            <X size={12} aria-hidden />
-            Clear {activeCount ? `(${activeCount})` : ""}
-          </button>
-        </div>
-      </div>
+            return (
+              <section key={section.key} className="space-y-4">
+                <h3 className="text-[18px] font-semibold tracking-[-0.01em] text-[#f3f4f6]">
+                  {section.label}
+                </h3>
 
-      <div className="min-h-0 flex-1 space-y-2.5 overflow-y-auto p-2.5 pb-24 md:pb-3">
-        {filterSections.map((section) => {
-          const isCollapsed = collapsedSections[section.key];
-          const isExpanded = expandedLists[section.key];
-          const visibleValues = isExpanded
-            ? section.values
-            : section.values.slice(0, section.defaultLimit);
-          const hiddenCount = section.values.length - visibleValues.length;
-          const activeSectionCount = activeFilters[section.key].length;
+                <div className="flex flex-wrap gap-3">
+                  {visibleValues.map((value) => {
+                    const isActive = activeFilters[section.key].includes(value);
 
-          return (
-            <section
-              key={section.key}
-              className="border border-dark-border bg-black/20"
-            >
-              <div className="flex items-center justify-between gap-2 border-b border-dark-border px-2.5 py-2">
-                <button
-                  type="button"
-                  onClick={() => section.collapsible && toggleSection(section.key)}
-                  className="flex min-w-0 flex-1 items-center gap-2 text-left"
-                  aria-expanded={!isCollapsed}
-                >
-                  <ChevronDown
-                    size={14}
-                    className={`shrink-0 text-neon-green transition ${
-                      isCollapsed ? "-rotate-90" : ""
-                    }`}
-                    aria-hidden
-                  />
-                  <span className="truncate text-[11px] font-bold uppercase tracking-[0.2em] text-text-primary">
-                    {section.label}
-                  </span>
-                </button>
-                {activeSectionCount ? (
-                  <span className="border border-neon-green/40 bg-neon-green-muted px-1.5 py-0.5 text-[9px] font-bold text-neon-green">
-                    {activeSectionCount}
-                  </span>
-                ) : null}
-              </div>
-
-              {!isCollapsed ? (
-                <div className="space-y-2 px-2.5 py-2.5">
-                  <div className="grid grid-cols-2 gap-1">
-                    {visibleValues.map((value) => {
-                      const isActive = activeFilters[section.key].includes(value);
-
-                      return (
-                        <button
-                          key={value}
-                          type="button"
-                          onClick={() => onToggleFilter(section.key, value)}
-                          className={`min-h-8 border px-2 py-1.5 text-left text-[10px] font-medium uppercase tracking-[0.05em] leading-tight transition duration-200 hover:-translate-y-px ${
-                            isActive
-                              ? "border-neon-green bg-neon-green text-black shadow-neon-soft"
-                              : "border-white/10 bg-white/[0.035] text-text-secondary hover:border-neon-green/60 hover:bg-neon-green-muted hover:text-neon-green"
-                          }`}
-                        >
-                          {value}
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  {section.values.length > section.defaultLimit ? (
-                    <button
-                      type="button"
-                      onClick={() => toggleList(section.key)}
-                      className="w-full border border-neon-green/30 bg-neon-green-muted px-3 py-1.5 text-[10px] font-bold uppercase tracking-[0.16em] text-neon-green transition hover:border-neon-green hover:bg-neon-green hover:text-black"
-                    >
-                      {isExpanded ? "Show less" : `Show all +${hiddenCount}`}
-                    </button>
-                  ) : null}
+                    return (
+                      <button
+                        key={value}
+                        type="button"
+                        onClick={() => onToggleFilter(section.key, value)}
+                        className={`rounded-[0.28rem] border px-3 py-1.5 text-[11px] font-medium transition duration-200 ease-out ${
+                          isActive
+                            ? "border-[#51725d] bg-[#213126] text-[#edf7ef]"
+                            : "border-[#45484e] bg-[#2a2c30] text-[#c5c8ce] hover:bg-[#32353a]"
+                        }`}
+                      >
+                        {value}
+                      </button>
+                    );
+                  })}
                 </div>
-              ) : null}
-            </section>
-          );
-        })}
+
+                {section.values.length > section.defaultLimit ? (
+                  <button
+                    type="button"
+                    onClick={() => toggleList(section.key)}
+                    className="text-[12px] font-medium text-[#9ca3af] transition duration-200 ease-out hover:text-[#d8dde4]"
+                  >
+                    {isExpanded ? "Show less" : "Show more"}
+                  </button>
+                ) : null}
+              </section>
+            );
+          })}
+        </div>
       </div>
     </aside>
   );

@@ -236,7 +236,7 @@ export function BostonTechWeekApp() {
           </div>
         </header>
 
-        <div className="grid min-h-0 flex-1 gap-3 px-3 py-3 md:grid-cols-[15.5rem_minmax(0,1fr)] md:px-4 md:py-4 xl:gap-4">
+        <div className="grid min-h-0 flex-1 gap-3 px-3 py-3 md:grid-cols-[18.75rem_minmax(0,1fr)] md:px-4 md:py-4 xl:gap-4">
           <EventFilters
             activeFilters={activeFilters}
             query={query}
