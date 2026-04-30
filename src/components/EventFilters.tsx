@@ -1,21 +1,26 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { Search, X } from "lucide-react";
 import filters from "@/src/data/filters.json";
 import { useState } from "react";
 
 type FilterKey = "topics" | "neighborhoods" | "types" | "startTimes";
+type ScheduleMode = "schedule" | "lineup";
 
 export type ActiveFilters = Record<FilterKey, string[]>;
 
 type EventFiltersProps = {
   activeFilters: ActiveFilters;
-  query: string;
+  className?: string;
+  hasActiveFilters: boolean;
+  mode: ScheduleMode;
+  onClear: () => void;
+  onModeChange: (mode: ScheduleMode) => void;
   onQueryChange: (query: string) => void;
   onToggleFilter: (key: FilterKey, value: string) => void;
-  onClear: () => void;
+  query: string;
   resultCount: number;
-  className?: string;
+  savedCount: number;
 };
 
 const filterSections: Array<{
@@ -24,24 +29,14 @@ const filterSections: Array<{
   values: string[];
   defaultLimit: number;
 }> = [
-  {
-    key: "topics",
-    label: "Topics",
-    values: filters.topics,
-    defaultLimit: 8,
-  },
+  { key: "topics", label: "Topics", values: filters.topics, defaultLimit: 8 },
   {
     key: "neighborhoods",
     label: "Neighborhood",
     values: filters.neighborhoods,
     defaultLimit: 8,
   },
-  {
-    key: "types",
-    label: "Types",
-    values: filters.types,
-    defaultLimit: 7,
-  },
+  { key: "types", label: "Types", values: filters.types, defaultLimit: 7 },
   {
     key: "startTimes",
     label: "Start time",
@@ -52,11 +47,16 @@ const filterSections: Array<{
 
 export function EventFilters({
   activeFilters,
-  query,
+  className = "",
+  hasActiveFilters,
+  mode,
+  onClear,
+  onModeChange,
   onQueryChange,
   onToggleFilter,
-  onClear,
-  className = "",
+  query,
+  resultCount,
+  savedCount,
 }: EventFiltersProps) {
   const [expandedLists, setExpandedLists] = useState<Record<FilterKey, boolean>>({
     topics: false,
@@ -65,11 +65,6 @@ export function EventFilters({
     startTimes: false,
   });
   const [featuredOnly, setFeaturedOnly] = useState(false);
-
-  const activeCount = Object.values(activeFilters).reduce(
-    (total, values) => total + values.length,
-    0,
-  );
 
   function toggleList(key: FilterKey) {
     setExpandedLists((current) => ({
@@ -88,15 +83,25 @@ export function EventFilters({
             <div className="grid grid-cols-2 gap-0.5">
               <button
                 type="button"
-                aria-pressed="true"
-                className="min-h-14 bg-[#20390f] px-4 py-3 text-center text-[12px] font-medium text-[#7ccf00] transition duration-200 ease-out hover:bg-[#274715]"
+                aria-pressed={mode === "schedule"}
+                onClick={() => onModeChange("schedule")}
+                className={`min-h-14 px-4 py-3 text-center text-[12px] font-medium transition duration-200 ease-out ${
+                  mode === "schedule"
+                    ? "bg-[#20390f] text-[#7ccf00]"
+                    : "bg-[#090909] text-[#f3f4f6] hover:bg-[#111214]"
+                }`}
               >
                 Schedule
               </button>
               <button
                 type="button"
-                aria-pressed="false"
-                className="min-h-14 bg-[#090909] px-4 py-3 text-center text-[12px] font-medium text-[#f3f4f6] transition duration-200 ease-out hover:bg-[#111214]"
+                aria-pressed={mode === "lineup"}
+                onClick={() => onModeChange("lineup")}
+                className={`min-h-14 px-4 py-3 text-center text-[12px] font-medium transition duration-200 ease-out ${
+                  mode === "lineup"
+                    ? "bg-[#20390f] text-[#7ccf00]"
+                    : "bg-[#090909] text-[#f3f4f6] hover:bg-[#111214]"
+                }`}
               >
                 Your lineup
               </button>
@@ -105,17 +110,28 @@ export function EventFilters({
 
           <div className="space-y-3">
             <p className="max-w-[14ch] text-[15px] leading-8 text-[#a3a7ad]">
-              Build your week. Share when ready!
+              {mode === "lineup"
+                ? "Track your saved events and review them on the map."
+                : "Build your week. Share when ready!"}
             </p>
-            {activeCount ? (
+            <div className="flex items-center justify-between gap-3">
+              <span className="text-[12px] text-[#8f959d]">
+                {mode === "lineup" ? `${savedCount} saved events` : `${resultCount} matching events`}
+              </span>
               <button
                 type="button"
                 onClick={onClear}
-                className="text-[12px] font-medium text-[#8f959d] transition duration-200 ease-out hover:text-[#e5e7eb]"
+                disabled={!hasActiveFilters}
+                className={`inline-flex items-center gap-1 rounded-[0.35rem] border px-2.5 py-1.5 text-[12px] font-medium transition duration-200 ease-out ${
+                  hasActiveFilters
+                    ? "border-white/10 text-[#d4d8dd] hover:border-neon-green/40 hover:text-white"
+                    : "cursor-not-allowed border-white/6 text-[#6f7580]"
+                }`}
               >
-                Clear all filters ({activeCount})
+                <X size={13} aria-hidden />
+                Clear filters
               </button>
-            ) : null}
+            </div>
           </div>
 
           <div className="border-t border-white/6" />

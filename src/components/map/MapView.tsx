@@ -1,7 +1,8 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef } from "react";
+import { Bookmark, BookmarkCheck } from "lucide-react";
 import MapboxMap, {
   Layer,
   NavigationControl,
@@ -16,11 +17,13 @@ import eventsData from "@/src/data/events.json";
 import type { Event } from "@/src/types/events";
 
 type MapViewProps = {
-  events?: Event[];
-  selectedEvent?: Event | null;
-  onSelectEvent?: (event: Event) => void;
   className?: string;
+  events?: Event[];
+  onSelectEvent?: (eventId: string | null) => void;
+  onToggleSave?: (eventId: string) => void;
   overlay?: ReactNode;
+  savedEventIds?: Set<string>;
+  selectedEventId?: string | null;
 };
 
 type EventFeatureProperties = {
@@ -90,34 +93,50 @@ function createEventFeatureCollection(
 }
 
 export function MapView({
-  events: filteredEvents,
-  selectedEvent,
-  onSelectEvent,
   className = "",
+  events: filteredEvents,
+  onSelectEvent,
+  onToggleSave,
   overlay,
+  savedEventIds,
+  selectedEventId,
 }: MapViewProps) {
   const events = filteredEvents ?? (eventsData as Event[]);
   const mapRef = useRef<MapRef>(null);
-  const [popupEvent, setPopupEvent] = useState<Event | null>(
-    selectedEvent ?? events[0] ?? null,
-  );
+  const previousSelectedIdRef = useRef<string | null>(null);
 
   const eventById = useMemo(() => {
     return new Map(events.map((event) => [event.id, event]));
   }, [events]);
 
   const geoJson = useMemo(() => createEventFeatureCollection(events), [events]);
+  const selectedEvent = selectedEventId ? eventById.get(selectedEventId) ?? null : null;
 
-  const selectedEventId = selectedEvent?.id ?? popupEvent?.id ?? "";
-  const activePopupEvent =
-    (selectedEventId ? eventById.get(selectedEventId) : null) ??
-    popupEvent ??
-    null;
+  useEffect(() => {
+    if (!selectedEvent) {
+      previousSelectedIdRef.current = null;
+      return;
+    }
 
-  function handleMarkerSelect(event: Event) {
-    setPopupEvent(event);
-    onSelectEvent?.(event);
-  }
+    const map = mapRef.current?.getMap();
+
+    if (!map) {
+      return;
+    }
+
+    const hasChanged = previousSelectedIdRef.current !== selectedEvent.id;
+    previousSelectedIdRef.current = selectedEvent.id;
+
+    if (!hasChanged) {
+      return;
+    }
+
+    map.easeTo({
+      center: [selectedEvent.lng, selectedEvent.lat],
+      duration: 550,
+      zoom: Math.max(map.getZoom(), 12.4),
+    });
+  }, [selectedEvent]);
 
   function handleMapClick(event: MapMouseEvent) {
     const feature = event.features?.[0] as
@@ -159,11 +178,7 @@ export function MapView({
       return;
     }
 
-    const selected = eventById.get(feature.properties.eventId);
-
-    if (selected) {
-      handleMarkerSelect(selected);
-    }
+    onSelectEvent?.(feature.properties.eventId);
   }
 
   return (
@@ -240,7 +255,7 @@ export function MapView({
               "circle-color": "#39ff14",
               "circle-radius": [
                 "case",
-                ["==", ["get", "eventId"], selectedEventId],
+                ["==", ["get", "eventId"], selectedEventId ?? ""],
                 10,
                 7,
               ],
@@ -256,7 +271,7 @@ export function MapView({
             filter={[
               "all",
               ["!", ["has", "point_count"]],
-              ["==", ["get", "eventId"], selectedEventId],
+              ["==", ["get", "eventId"], selectedEventId ?? ""],
             ]}
             paint={{
               "circle-color": "#39ff14",
@@ -269,30 +284,50 @@ export function MapView({
           />
         </Source>
 
-        {activePopupEvent ? (
+        {selectedEvent ? (
           <Popup
-            longitude={activePopupEvent.lng}
-            latitude={activePopupEvent.lat}
+            longitude={selectedEvent.lng}
+            latitude={selectedEvent.lat}
             anchor="bottom"
             closeButton
             closeOnClick={false}
             offset={18}
-            onClose={() => setPopupEvent(null)}
+            onClose={() => onSelectEvent?.(null)}
             className="tech-week-map-popup"
           >
             <div className="min-w-[230px] max-w-[290px] bg-black text-text-primary">
-              <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-neon-green">
-                {formatEventTime(activePopupEvent)}
-              </p>
-              <h3 className="mt-2 text-sm font-black uppercase leading-tight">
-                {activePopupEvent.title}
-              </h3>
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-neon-green">
+                    {formatEventTime(selectedEvent)}
+                  </p>
+                  <h3 className="mt-2 text-sm font-black uppercase leading-tight">
+                    {selectedEvent.title}
+                  </h3>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => onToggleSave?.(selectedEvent.id)}
+                  aria-pressed={savedEventIds?.has(selectedEvent.id) ?? false}
+                  className={`inline-flex h-9 w-9 shrink-0 items-center justify-center border transition ${
+                    savedEventIds?.has(selectedEvent.id)
+                      ? "border-neon-green/50 bg-neon-green-muted text-neon-green"
+                      : "border-white/10 text-text-secondary hover:border-neon-green/40 hover:text-neon-green"
+                  }`}
+                >
+                  {savedEventIds?.has(selectedEvent.id) ? (
+                    <BookmarkCheck size={16} aria-hidden />
+                  ) : (
+                    <Bookmark size={16} aria-hidden />
+                  )}
+                </button>
+              </div>
               <p className="mt-2 text-xs font-semibold text-text-secondary">
-                {activePopupEvent.neighborhood}
+                {selectedEvent.neighborhood}
               </p>
-              {activePopupEvent.registrationUrl ? (
+              {selectedEvent.registrationUrl ? (
                 <a
-                  href={activePopupEvent.registrationUrl}
+                  href={selectedEvent.registrationUrl}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-3 inline-flex border border-neon-green/50 bg-neon-green px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-black transition hover:bg-neon-green-soft"

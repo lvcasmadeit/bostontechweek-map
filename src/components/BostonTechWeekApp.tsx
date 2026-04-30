@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
-import { CalendarDays, ListFilter, Map, PanelsTopLeft, X } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import { CalendarDays, ListFilter, Map as MapIcon, PanelsTopLeft, X } from "lucide-react";
 import { EventCard } from "@/src/components/EventCard";
 import { EventFilters, type ActiveFilters } from "@/src/components/EventFilters";
 import { MapView } from "@/src/components/map/MapView";
@@ -9,7 +9,9 @@ import eventsData from "@/src/data/events.json";
 import type { Event } from "@/src/types/events";
 
 type ViewMode = "map" | "list";
+type ScheduleMode = "schedule" | "lineup";
 
+const SAVED_LINEUP_STORAGE_KEY = "btw-2026-saved-lineup";
 const events = eventsData as Event[];
 
 const emptyFilters: ActiveFilters = {
@@ -66,15 +68,15 @@ function EventSkeleton() {
 }
 
 type DateTabBarProps = {
-  selectedDate: string;
-  onSelectDate: (value: string) => void;
   isOverlay?: boolean;
+  onSelectDate: (value: string) => void;
+  selectedDate: string;
 };
 
 function DateTabBar({
-  selectedDate,
-  onSelectDate,
   isOverlay = false,
+  onSelectDate,
+  selectedDate,
 }: DateTabBarProps) {
   return (
     <div
@@ -114,11 +116,15 @@ function DateTabBar({
 export function BostonTechWeekApp() {
   const [activeFilters, setActiveFilters] = useState<ActiveFilters>(emptyFilters);
   const [query, setQuery] = useState("");
+  const [scheduleMode, setScheduleMode] = useState<ScheduleMode>("schedule");
+  const [savedEventIds, setSavedEventIds] = useState<string[]>([]);
   const [selectedDate, setSelectedDate] = useState("all");
-  const [selectedEvent, setSelectedEvent] = useState<Event | null>(events[0] ?? null);
+  const [selectedEventId, setSelectedEventId] = useState<string | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("map");
   const [isSheetOpen, setIsSheetOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const mapViewportRef = useRef<HTMLDivElement | null>(null);
+  const selectionOriginRef = useRef<"map" | "list" | null>(null);
 
   useEffect(() => {
     const timeout = window.setTimeout(() => setIsLoading(false), 420);
@@ -126,10 +132,48 @@ export function BostonTechWeekApp() {
     return () => window.clearTimeout(timeout);
   }, []);
 
+  useEffect(() => {
+    try {
+      const stored = window.localStorage.getItem(SAVED_LINEUP_STORAGE_KEY);
+
+      if (!stored) {
+        return;
+      }
+
+      const parsed = JSON.parse(stored) as unknown;
+
+      if (Array.isArray(parsed)) {
+        setSavedEventIds(parsed.filter((value): value is string => typeof value === "string"));
+      }
+    } catch {
+      setSavedEventIds([]);
+    }
+  }, []);
+
+  useEffect(() => {
+    window.localStorage.setItem(
+      SAVED_LINEUP_STORAGE_KEY,
+      JSON.stringify(savedEventIds),
+    );
+  }, [savedEventIds]);
+
+  const eventById = useMemo(() => {
+    return new Map(events.map((event) => [event.id, event]));
+  }, []);
+
+  const savedEventIdSet = useMemo(() => new Set(savedEventIds), [savedEventIds]);
+  const scopedEvents = useMemo(() => {
+    if (scheduleMode === "schedule") {
+      return events;
+    }
+
+    return events.filter((event) => savedEventIdSet.has(event.id));
+  }, [savedEventIdSet, scheduleMode]);
+
   const filteredEvents = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
 
-    return events.filter((event) => {
+    return scopedEvents.filter((event) => {
       const eventDate = event.startTime.slice(0, 10);
       const searchBlob = [
         event.title,
@@ -153,18 +197,50 @@ export function BostonTechWeekApp() {
         matchesAny(activeFilters.startTimes, [getStartTimeBucket(event)])
       );
     });
-  }, [activeFilters, query, selectedDate]);
+  }, [activeFilters, query, scopedEvents, selectedDate]);
+
+  const selectedEvent = selectedEventId ? eventById.get(selectedEventId) ?? null : null;
+  const hasSavedEvents = savedEventIds.length > 0;
+  const isLineupEmpty = scheduleMode === "lineup" && !hasSavedEvents;
+  const hasActiveFilters =
+    Boolean(query.trim()) ||
+    selectedDate !== "all" ||
+    Object.values(activeFilters).some((values) => values.length > 0);
 
   useEffect(() => {
     if (!filteredEvents.length) {
-      setSelectedEvent(null);
+      setSelectedEventId(null);
       return;
     }
 
-    if (!selectedEvent || !filteredEvents.some((event) => event.id === selectedEvent.id)) {
-      setSelectedEvent(filteredEvents[0]);
+    if (selectedEventId && !filteredEvents.some((event) => event.id === selectedEventId)) {
+      setSelectedEventId(null);
     }
-  }, [filteredEvents, selectedEvent]);
+  }, [filteredEvents, selectedEventId]);
+
+  useEffect(() => {
+    if (!selectedEventId) {
+      selectionOriginRef.current = null;
+      return;
+    }
+
+    if (selectionOriginRef.current !== "list" || viewMode !== "map") {
+      if (selectionOriginRef.current === "map") {
+        selectionOriginRef.current = null;
+      }
+      return;
+    }
+
+    const frame = window.requestAnimationFrame(() => {
+      mapViewportRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+      selectionOriginRef.current = null;
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [selectedEventId, viewMode]);
 
   function toggleFilter(key: keyof ActiveFilters, value: string) {
     setActiveFilters((current) => ({
@@ -179,6 +255,38 @@ export function BostonTechWeekApp() {
     setActiveFilters(emptyFilters);
     setQuery("");
     setSelectedDate("all");
+  }
+
+  function toggleSavedEvent(eventId: string) {
+    setSavedEventIds((current) =>
+      current.includes(eventId)
+        ? current.filter((id) => id !== eventId)
+        : [...current, eventId],
+    );
+  }
+
+  function handleMapSelection(eventId: string | null) {
+    selectionOriginRef.current = "map";
+    setSelectedEventId(eventId);
+  }
+
+  function handleListSelection(eventId: string) {
+    selectionOriginRef.current = "list";
+    setViewMode("map");
+    setSelectedEventId(eventId);
+  }
+
+  function renderEventCard(event: Event) {
+    return (
+      <EventCard
+        key={event.id}
+        event={event}
+        isSaved={savedEventIdSet.has(event.id)}
+        isSelected={selectedEventId === event.id}
+        onSelect={handleListSelection}
+        onToggleSave={toggleSavedEvent}
+      />
+    );
   }
 
   return (
@@ -207,7 +315,7 @@ export function BostonTechWeekApp() {
 
             <div className="grid grid-cols-3 gap-1 border border-dark-border bg-dark-panel p-1 md:grid-cols-2">
               {[
-                { mode: "map" as const, label: "Map", icon: Map },
+                { mode: "map" as const, label: "Map", icon: MapIcon },
                 { mode: "list" as const, label: "List", icon: PanelsTopLeft },
               ].map(({ mode, label, icon: Icon }) => (
                 <button
@@ -239,11 +347,15 @@ export function BostonTechWeekApp() {
         <div className="grid min-h-0 flex-1 gap-3 px-3 py-3 md:grid-cols-[18.75rem_minmax(0,1fr)] md:px-4 md:py-4 xl:gap-4">
           <EventFilters
             activeFilters={activeFilters}
+            hasActiveFilters={hasActiveFilters}
+            mode={scheduleMode}
             query={query}
+            onModeChange={setScheduleMode}
             onQueryChange={setQuery}
             onToggleFilter={toggleFilter}
             onClear={clearFilters}
             resultCount={filteredEvents.length}
+            savedCount={savedEventIds.length}
             className="hidden md:sticky md:top-4 md:flex md:h-[clamp(34rem,68vh,calc(100vh-7.75rem))] md:self-start"
           />
 
@@ -251,23 +363,41 @@ export function BostonTechWeekApp() {
             <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
               <div>
                 <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-neon-green">
-                  What&apos;s on
+                  {scheduleMode === "lineup" ? "Your lineup" : "What&apos;s on"}
                 </p>
                 <h2 className="mt-1 text-xl font-bold uppercase tracking-[0.06em] sm:text-2xl">
-                  {viewMode === "map" ? "Map-first event discovery" : "List-first lineup view"}
+                  {scheduleMode === "lineup"
+                    ? "Saved events across map and list"
+                    : viewMode === "map"
+                      ? "Map-first event discovery"
+                      : "List-first event discovery"}
                 </h2>
                 <p className="mt-1 text-sm text-text-secondary">
-                  {filteredEvents.length} events matched across Boston and Cambridge.
+                  {scheduleMode === "lineup"
+                    ? `${filteredEvents.length} saved events matched your current filters.`
+                    : `${filteredEvents.length} events matched across Boston and Cambridge.`}
                 </p>
               </div>
               <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-text-secondary">
                 <CalendarDays size={15} className="text-neon-green" aria-hidden />
-                Map + list sync
+                {selectedEvent ? `Selected: ${selectedEvent.title}` : "Map + list sync"}
               </div>
             </div>
 
             {isLoading ? (
               <EventSkeleton />
+            ) : isLineupEmpty ? (
+              <div className="rounded-tech border border-dark-border bg-dark-panel p-8 text-center">
+                <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-neon-green">
+                  Empty lineup
+                </p>
+                <h3 className="mt-2 text-2xl font-bold uppercase">
+                  Save events to build your week
+                </h3>
+                <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-text-secondary">
+                  Use the bookmark controls on event cards or map popups to add sessions you plan to attend.
+                </p>
+              </div>
             ) : filteredEvents.length ? (
               <div className="space-y-4">
                 <div
@@ -277,11 +407,14 @@ export function BostonTechWeekApp() {
                       : "pointer-events-none max-h-0 -translate-y-4 opacity-0"
                   }`}
                   aria-hidden={viewMode !== "map"}
+                  ref={mapViewportRef}
                 >
                   <MapView
                     events={filteredEvents}
-                    selectedEvent={selectedEvent}
-                    onSelectEvent={setSelectedEvent}
+                    selectedEventId={selectedEventId}
+                    savedEventIds={savedEventIdSet}
+                    onSelectEvent={handleMapSelection}
+                    onToggleSave={toggleSavedEvent}
                     overlay={
                       <DateTabBar
                         selectedDate={selectedDate}
@@ -307,7 +440,9 @@ export function BostonTechWeekApp() {
                         Event List
                       </p>
                       <h3 className="mt-1 text-lg font-bold uppercase tracking-[0.08em] text-text-primary">
-                        Full schedule below the map
+                        {scheduleMode === "lineup"
+                          ? "Your saved schedule below the map"
+                          : "Full schedule below the map"}
                       </h3>
                     </div>
                     <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-text-secondary">
@@ -321,14 +456,7 @@ export function BostonTechWeekApp() {
                         : "md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
                     }`}
                   >
-                    {filteredEvents.map((event) => (
-                      <EventCard
-                        key={event.id}
-                        event={event}
-                        isSelected={selectedEvent?.id === event.id}
-                        onSelect={setSelectedEvent}
-                      />
-                    ))}
+                    {filteredEvents.map(renderEventCard)}
                   </div>
                 </section>
               </div>
@@ -338,7 +466,9 @@ export function BostonTechWeekApp() {
                   No matches
                 </p>
                 <h3 className="mt-2 text-2xl font-bold uppercase">
-                  Clear filters to rebuild your lineup
+                  {scheduleMode === "lineup"
+                    ? "Adjust filters to find saved events"
+                    : "Clear filters to rebuild your lineup"}
                 </h3>
               </div>
             )}
@@ -373,11 +503,15 @@ export function BostonTechWeekApp() {
             </div>
             <EventFilters
               activeFilters={activeFilters}
+              hasActiveFilters={hasActiveFilters}
+              mode={scheduleMode}
               query={query}
+              onModeChange={setScheduleMode}
               onQueryChange={setQuery}
               onToggleFilter={toggleFilter}
               onClear={clearFilters}
               resultCount={filteredEvents.length}
+              savedCount={savedEventIds.length}
               className="max-h-[calc(88vh-4rem)]"
             />
           </div>
