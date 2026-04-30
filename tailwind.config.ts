@@ -22,7 +22,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: [
-          "Inter",
+          "var(--font-space-grotesk)",
           "system-ui",
           "-apple-system",
           "blinkmacsystemfont",

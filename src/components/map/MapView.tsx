@@ -1,5 +1,6 @@
 "use client";
 
+import type { ReactNode } from "react";
 import { useMemo, useRef, useState } from "react";
 import MapboxMap, {
   Layer,
@@ -19,6 +20,7 @@ type MapViewProps = {
   selectedEvent?: Event | null;
   onSelectEvent?: (event: Event) => void;
   className?: string;
+  overlay?: ReactNode;
 };
 
 type EventFeatureProperties = {
@@ -92,6 +94,7 @@ export function MapView({
   selectedEvent,
   onSelectEvent,
   className = "",
+  overlay,
 }: MapViewProps) {
   const events = filteredEvents ?? (eventsData as Event[]);
   const mapRef = useRef<MapRef>(null);
@@ -165,9 +168,14 @@ export function MapView({
 
   return (
     <section
-      className={`relative min-h-[520px] overflow-hidden rounded-tech border border-dark-border bg-[#050805] shadow-panel-hard md:min-h-[calc(100vh-10rem)] ${className}`}
+      className={`relative min-h-[520px] overflow-hidden rounded-tech border border-dark-border bg-[#050805] shadow-panel-hard ${className}`}
     >
       <div className="pointer-events-none absolute inset-0 z-10 bg-[linear-gradient(180deg,rgba(10,10,10,0.28),transparent_24%,transparent_72%,rgba(10,10,10,0.34)),radial-gradient(circle_at_50%_30%,rgba(57,255,20,0.08),transparent_34%)]" />
+      {overlay ? (
+        <div className="absolute left-3 right-3 top-3 z-30 md:left-1/2 md:right-auto md:w-max md:max-w-[calc(100%-7rem)] md:-translate-x-1/2">
+          {overlay}
+        </div>
+      ) : null}
       <MapboxMap
         ref={mapRef}
         mapboxAccessToken={MAPBOX_TOKEN}
@@ -180,7 +188,7 @@ export function MapView({
         reuseMaps
         style={{ width: "100%", height: "100%", minHeight: "inherit" }}
       >
-        <NavigationControl position="top-right" visualizePitch />
+        <NavigationControl position="bottom-right" visualizePitch />
 
         <Source
           id={EVENT_SOURCE_ID}
@@ -297,15 +305,15 @@ export function MapView({
         ) : null}
       </MapboxMap>
 
-      <div className="pointer-events-none absolute left-4 top-4 z-20 border border-neon-green/30 bg-black/78 px-3 py-2 shadow-neon-soft backdrop-blur">
-        <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-neon-green">
+      <div className="pointer-events-none absolute left-4 top-[4.75rem] z-20 border border-neon-green/30 bg-black/78 px-3 py-2 shadow-neon-soft backdrop-blur md:top-4">
+        <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-neon-green">
           Live Map
         </p>
-        <p className="text-sm font-bold text-text-primary">
+        <p className="text-sm font-medium text-text-primary">
           Boston + Cambridge
         </p>
       </div>
-      <div className="pointer-events-none absolute bottom-4 left-4 z-20 hidden border border-dark-border bg-black/70 px-3 py-2 text-[11px] font-bold uppercase tracking-[0.14em] text-text-secondary backdrop-blur sm:block">
+      <div className="pointer-events-none absolute bottom-4 left-4 z-20 hidden border border-dark-border bg-black/70 px-3 py-2 text-[11px] font-medium uppercase tracking-[0.14em] text-text-secondary backdrop-blur sm:block">
         <span className="text-neon-green">{events.length}</span> mapped events
       </div>
     </section>

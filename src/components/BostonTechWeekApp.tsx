@@ -20,7 +20,7 @@ const emptyFilters: ActiveFilters = {
 };
 
 const dateTabs = [
-  { label: "All", detail: "Week", value: "all" },
+  { label: "All Week", detail: "May 26-31", value: "all" },
   { label: "Tue", detail: "May 26", value: "2026-05-26" },
   { label: "Wed", detail: "May 27", value: "2026-05-27" },
   { label: "Thu", detail: "May 28", value: "2026-05-28" },
@@ -54,12 +54,59 @@ function matchesAny(selected: string[], values: string[]) {
 function EventSkeleton() {
   return (
     <div className="space-y-3">
-      {Array.from({ length: 4 }).map((_, index) => (
+      <div className="h-[clamp(34rem,68vh,calc(100vh-7.75rem))] animate-pulse rounded-tech border border-dark-border bg-dark-surface" />
+      {Array.from({ length: 3 }).map((_, index) => (
         <div
           key={index}
           className="h-32 animate-pulse rounded-tech border border-dark-border bg-dark-surface"
         />
       ))}
+    </div>
+  );
+}
+
+type DateTabBarProps = {
+  selectedDate: string;
+  onSelectDate: (value: string) => void;
+  isOverlay?: boolean;
+};
+
+function DateTabBar({
+  selectedDate,
+  onSelectDate,
+  isOverlay = false,
+}: DateTabBarProps) {
+  return (
+    <div
+      className={`${
+        isOverlay
+          ? "pointer-events-auto overflow-x-auto rounded-tech border border-dark-border bg-black/78 p-1 shadow-panel-hard backdrop-blur-md"
+          : "overflow-x-auto rounded-tech border border-dark-border bg-dark-panel/80 p-1"
+      }`}
+    >
+      <div className="flex min-w-max gap-1">
+        {dateTabs.map((tab) => (
+          <button
+            key={tab.value}
+            type="button"
+            onClick={() => onSelectDate(tab.value)}
+            className={`flex shrink-0 flex-col border px-2.5 py-1.5 text-left text-[10px] font-semibold uppercase tracking-[0.18em] transition sm:px-3 ${
+              selectedDate === tab.value
+                ? "border-neon-green bg-neon-green text-black shadow-neon-soft"
+                : "border-dark-border bg-dark-panel/70 text-text-secondary hover:border-neon-green/60 hover:bg-neon-green-muted hover:text-neon-green"
+            }`}
+          >
+            <span>{tab.label}</span>
+            <span
+              className={`mt-0.5 text-[9px] tracking-[0.14em] ${
+                selectedDate === tab.value ? "text-black/70" : "text-text-muted"
+              }`}
+            >
+              {tab.detail}
+            </span>
+          </button>
+        ))}
+      </div>
     </div>
   );
 }
@@ -141,14 +188,14 @@ export function BostonTechWeekApp() {
           <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
             <div className="flex min-w-0 flex-col gap-2 md:flex-row md:items-end md:gap-5">
               <div className="flex items-center gap-3">
-                <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-neon-green bg-neon-green text-sm font-black text-black shadow-neon-soft">
+                <span className="flex h-10 w-10 shrink-0 items-center justify-center border border-neon-green bg-neon-green text-sm font-bold text-black shadow-neon-soft">
                   TW
                 </span>
                 <div className="min-w-0">
-                  <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-neon-green">
+                  <p className="text-[11px] font-medium uppercase tracking-[0.24em] text-neon-green">
                     May 26 - May 31 · Presented by a16z
                   </p>
-                  <h1 className="truncate text-2xl font-black uppercase leading-none tracking-[0.04em] text-text-primary sm:text-3xl">
+                  <h1 className="truncate text-2xl font-bold uppercase leading-none tracking-[0.04em] text-text-primary sm:text-3xl">
                     Boston Tech Week 2026
                   </h1>
                 </div>
@@ -167,7 +214,7 @@ export function BostonTechWeekApp() {
                   key={mode}
                   type="button"
                   onClick={() => setViewMode(mode)}
-                  className={`inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.12em] transition ${
+                  className={`inline-flex items-center justify-center gap-2 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] transition ${
                     viewMode === mode
                       ? "bg-neon-green text-black shadow-neon-soft"
                       : "text-text-secondary hover:text-neon-green"
@@ -180,7 +227,7 @@ export function BostonTechWeekApp() {
               <button
                 type="button"
                 onClick={() => setIsSheetOpen(true)}
-                className="inline-flex items-center justify-center gap-2 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.12em] text-text-secondary transition hover:text-neon-green md:hidden"
+                className="inline-flex items-center justify-center gap-2 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-text-secondary transition hover:text-neon-green md:hidden"
               >
                 <ListFilter size={16} aria-hidden />
                 Filter
@@ -189,7 +236,7 @@ export function BostonTechWeekApp() {
           </div>
         </header>
 
-        <div className="grid min-h-0 flex-1 md:grid-cols-[19rem_minmax(0,1fr)] 2xl:grid-cols-[19rem_minmax(0,1fr)]">
+        <div className="grid min-h-0 flex-1 gap-3 px-3 py-3 md:grid-cols-[15.5rem_minmax(0,1fr)] md:px-4 md:py-4 xl:gap-4">
           <EventFilters
             activeFilters={activeFilters}
             query={query}
@@ -197,105 +244,100 @@ export function BostonTechWeekApp() {
             onToggleFilter={toggleFilter}
             onClear={clearFilters}
             resultCount={filteredEvents.length}
-            className="hidden border-r md:flex"
+            className="hidden md:sticky md:top-4 md:flex md:h-[clamp(34rem,68vh,calc(100vh-7.75rem))] md:self-start"
           />
 
-          <section className="min-w-0 px-3 py-3 md:px-4">
-            <div className="mb-3 flex gap-1.5 overflow-x-auto border-b border-dark-border pb-3">
-              {dateTabs.map((tab) => (
-                <button
-                  key={tab.value}
-                  type="button"
-                  onClick={() => setSelectedDate(tab.value)}
-                  className={`flex shrink-0 flex-col border px-4 py-2 text-left text-xs font-extrabold uppercase tracking-[0.16em] transition ${
-                    selectedDate === tab.value
-                      ? "border-neon-green bg-neon-green text-black shadow-neon-soft"
-                      : "border-dark-border bg-dark-panel text-text-secondary hover:border-neon-green/60 hover:bg-neon-green-muted hover:text-neon-green"
-                  }`}
-                >
-                  <span>{tab.label}</span>
-                  <span
-                    className={`mt-0.5 text-[10px] tracking-[0.12em] ${
-                      selectedDate === tab.value ? "text-black/70" : "text-text-muted"
-                    }`}
-                  >
-                    {tab.detail}
-                  </span>
-                </button>
-              ))}
-            </div>
-
-            <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <section className="min-w-0">
+            <div className="mb-3 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
               <div>
-                <p className="text-[11px] font-extrabold uppercase tracking-[0.22em] text-neon-green">
+                <p className="text-[10px] font-medium uppercase tracking-[0.24em] text-neon-green">
                   What&apos;s on
                 </p>
-                <h2 className="mt-1 text-xl font-black uppercase tracking-[0.06em]">
-                  {filteredEvents.length} featured events
+                <h2 className="mt-1 text-xl font-bold uppercase tracking-[0.06em] sm:text-2xl">
+                  {viewMode === "map" ? "Map-first event discovery" : "List-first lineup view"}
                 </h2>
+                <p className="mt-1 text-sm text-text-secondary">
+                  {filteredEvents.length} events matched across Boston and Cambridge.
+                </p>
               </div>
-              <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-text-secondary">
+              <div className="flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.18em] text-text-secondary">
                 <CalendarDays size={15} className="text-neon-green" aria-hidden />
-                BOS 2026
+                Map + list sync
               </div>
             </div>
 
             {isLoading ? (
               <EventSkeleton />
             ) : filteredEvents.length ? (
-              <div
-                className={
-                  viewMode === "map"
-                    ? "grid min-h-0 gap-3 xl:grid-cols-[minmax(0,1fr)_22rem] 2xl:grid-cols-[minmax(0,1fr)_24rem]"
-                    : "grid gap-3 md:grid-cols-2 xl:grid-cols-3"
-                }
-              >
-                {viewMode === "map" ? (
-                  <>
-                    <MapView
-                      events={filteredEvents}
-                      selectedEvent={selectedEvent}
-                      onSelectEvent={setSelectedEvent}
-                      className="xl:h-[calc(100vh-10rem)]"
-                    />
-                    <div className="min-h-0 border border-dark-border bg-dark-panel/80 shadow-panel-hard xl:h-[calc(100vh-10rem)]">
-                      <div className="flex items-center justify-between border-b border-dark-border px-3 py-2.5">
-                        <p className="text-[11px] font-black uppercase tracking-[0.18em] text-text-primary">
-                          Event List
-                        </p>
-                        <span className="text-[11px] font-bold uppercase tracking-[0.14em] text-neon-green">
-                          {filteredEvents.length}
-                        </span>
-                      </div>
-                      <div className="space-y-2 overflow-y-auto p-2 xl:h-[calc(100%-2.75rem)]">
-                        {filteredEvents.map((event) => (
-                          <EventCard
-                            key={event.id}
-                            event={event}
-                            isSelected={selectedEvent?.id === event.id}
-                            onSelect={setSelectedEvent}
-                          />
-                        ))}
-                      </div>
+              <div className="space-y-4">
+                <div
+                  className={`overflow-hidden transition-all duration-300 ease-out ${
+                    viewMode === "map"
+                      ? "max-h-[80rem] translate-y-0 opacity-100"
+                      : "pointer-events-none max-h-0 -translate-y-4 opacity-0"
+                  }`}
+                  aria-hidden={viewMode !== "map"}
+                >
+                  <MapView
+                    events={filteredEvents}
+                    selectedEvent={selectedEvent}
+                    onSelectEvent={setSelectedEvent}
+                    overlay={
+                      <DateTabBar
+                        selectedDate={selectedDate}
+                        onSelectDate={setSelectedDate}
+                        isOverlay
+                      />
+                    }
+                    className="h-[clamp(34rem,68vh,calc(100vh-7.75rem))] min-h-[30rem]"
+                  />
+                </div>
+
+                {viewMode === "list" ? (
+                  <DateTabBar
+                    selectedDate={selectedDate}
+                    onSelectDate={setSelectedDate}
+                  />
+                ) : null}
+
+                <section className="border border-dark-border bg-dark-panel/80 shadow-panel-hard transition-all duration-300">
+                  <div className="flex flex-col gap-3 border-b border-dark-border px-3 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-4">
+                    <div>
+                      <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-neon-green">
+                        Event List
+                      </p>
+                      <h3 className="mt-1 text-lg font-bold uppercase tracking-[0.08em] text-text-primary">
+                        Full schedule below the map
+                      </h3>
                     </div>
-                  </>
-                ) : (
-                  filteredEvents.map((event) => (
-                    <EventCard
-                      key={event.id}
-                      event={event}
-                      isSelected={selectedEvent?.id === event.id}
-                      onSelect={setSelectedEvent}
-                    />
-                  ))
-                )}
+                    <span className="text-[11px] font-medium uppercase tracking-[0.16em] text-text-secondary">
+                      {filteredEvents.length} visible events
+                    </span>
+                  </div>
+                  <div
+                    className={`grid gap-3 p-3 transition-all duration-300 sm:p-4 ${
+                      viewMode === "map"
+                        ? "lg:grid-cols-2 2xl:grid-cols-3"
+                        : "md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4"
+                    }`}
+                  >
+                    {filteredEvents.map((event) => (
+                      <EventCard
+                        key={event.id}
+                        event={event}
+                        isSelected={selectedEvent?.id === event.id}
+                        onSelect={setSelectedEvent}
+                      />
+                    ))}
+                  </div>
+                </section>
               </div>
             ) : (
               <div className="rounded-tech border border-dark-border bg-dark-panel p-8 text-center">
-                <p className="text-[11px] font-bold uppercase tracking-[0.22em] text-neon-green">
+                <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-neon-green">
                   No matches
                 </p>
-                <h3 className="mt-2 text-2xl font-black uppercase">
+                <h3 className="mt-2 text-2xl font-bold uppercase">
                   Clear filters to rebuild your lineup
                 </h3>
               </div>
@@ -307,7 +349,7 @@ export function BostonTechWeekApp() {
       <button
         type="button"
         onClick={() => setIsSheetOpen(true)}
-        className="fixed bottom-4 left-4 right-4 z-30 inline-flex items-center justify-center gap-2 rounded-tech border border-neon-green bg-neon-green px-4 py-3 text-sm font-black uppercase tracking-[0.16em] text-black shadow-neon-ring md:hidden"
+        className="fixed bottom-4 left-4 right-4 z-30 inline-flex items-center justify-center gap-2 rounded-tech border border-neon-green bg-neon-green px-4 py-3 text-sm font-bold uppercase tracking-[0.16em] text-black shadow-neon-ring md:hidden"
       >
         <ListFilter size={17} aria-hidden />
         Filters · {filteredEvents.length}
@@ -317,7 +359,7 @@ export function BostonTechWeekApp() {
         <div className="fixed inset-0 z-40 bg-black/70 backdrop-blur-sm md:hidden">
           <div className="absolute inset-x-0 bottom-0 max-h-[88vh] overflow-hidden border border-dark-border bg-dark-panel shadow-2xl">
             <div className="flex items-center justify-between border-b border-dark-border px-4 py-3">
-              <p className="text-sm font-black uppercase tracking-[0.18em]">
+              <p className="text-sm font-bold uppercase tracking-[0.18em]">
                 Filter Events
               </p>
               <button

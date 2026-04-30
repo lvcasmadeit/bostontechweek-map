@@ -31,7 +31,7 @@ export function EventCard({ event, isSelected, onSelect }: EventCardProps) {
     <button
       type="button"
       onClick={() => onSelect(event)}
-      className={`group w-full rounded-tech border bg-dark-surface/85 p-3 text-left transition duration-200 hover:-translate-y-0.5 hover:border-neon-green/70 hover:bg-[#232323] hover:shadow-neon-soft ${
+      className={`group w-full rounded-tech border bg-dark-surface/85 p-3.5 text-left transition duration-200 hover:-translate-y-0.5 hover:border-neon-green/70 hover:bg-[#232323] hover:shadow-neon-soft ${
         isSelected
           ? "border-neon-green shadow-neon-ring"
           : "border-dark-border"
@@ -39,15 +39,15 @@ export function EventCard({ event, isSelected, onSelect }: EventCardProps) {
     >
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
-          <p className="mb-2 flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.18em] text-neon-green">
+          <p className="mb-2 flex items-center gap-2 text-[10px] font-medium uppercase tracking-[0.18em] text-neon-green">
             <CalendarDays size={14} aria-hidden />
             {dateFormatter.format(start)}
           </p>
-          <h3 className="text-sm font-extrabold uppercase leading-tight text-text-primary transition group-hover:text-neon-green sm:text-base">
+          <h3 className="text-sm font-bold uppercase leading-tight text-text-primary transition group-hover:text-neon-green sm:text-base">
             {event.title}
           </h3>
         </div>
-        <span className="shrink-0 border border-neon-green/30 bg-neon-green-muted px-2 py-1 text-[10px] font-bold uppercase tracking-[0.14em] text-neon-green">
+        <span className="shrink-0 border border-neon-green/30 bg-neon-green-muted px-2 py-1 text-[10px] font-medium uppercase tracking-[0.14em] text-neon-green">
           {accessLabel}
         </span>
       </div>
@@ -73,12 +73,12 @@ export function EventCard({ event, isSelected, onSelect }: EventCardProps) {
         {event.topics.slice(0, 3).map((topic) => (
           <span
             key={topic}
-            className="border border-white/10 bg-white/[0.04] px-2 py-1 text-[11px] font-semibold text-text-primary"
+            className="border border-white/10 bg-white/[0.04] px-2 py-1 text-[10px] font-medium uppercase tracking-[0.04em] text-text-primary"
           >
             {topic}
           </span>
         ))}
-        <span className="inline-flex items-center gap-1 border border-white/10 bg-white/[0.04] px-2 py-1 text-[11px] font-semibold text-text-secondary">
+        <span className="inline-flex items-center gap-1 border border-white/10 bg-white/[0.04] px-2 py-1 text-[10px] font-medium uppercase tracking-[0.04em] text-text-secondary">
           <Ticket size={12} aria-hidden />
           {event.type}
         </span>
