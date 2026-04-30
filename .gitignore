@@ -30,8 +30,11 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files (can opt-in for committing if needed)
-.env*
+# env files and local secrets
+.env
+.env.*
+.envrc
+!.env.example
 
 # vercel
 .vercel
@@ -43,3 +46,14 @@ next-env.d.ts
 # md files
 *.md
 !README.md
+
+# security artifacts
+*.crt
+*.key
+*.p12
+*.pfx
+*.secret
+*.secrets
+*.credentials
+.secrets/
+security-report*

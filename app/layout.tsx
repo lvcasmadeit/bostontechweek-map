@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   title: "Boston Tech Week 2026 Interactive Map",
   description:
     "A dark neon event discovery map for Boston Tech Week 2026.",
+  referrer: "strict-origin-when-cross-origin",
 };
 
 export default function RootLayout({

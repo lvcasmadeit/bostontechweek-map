@@ -289,7 +289,7 @@
     "type": "Breakfast",
     "host": "Liberty Ventures, The Right Room",
     "description": "Liberty Ventures, The Right Room hosts Vibe Coding for Freedom in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/YEsCtk3srsKQwAVp7KIC?c=1_WSVSb-",
+    "registrationUrl": "https://partiful.com/e/YEsCtk3srsKQwAVp7KIC",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -311,7 +311,7 @@
     "type": "Roundtable / Workshop",
     "host": "ScaleUp Labs",
     "description": "ScaleUp Labs hosts What’s Not So Obvious About AI in Manufacturing and Energy: Mixer & Roundtable in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/hfaSebsdlwYU57CirbYK?",
+    "registrationUrl": "https://partiful.com/e/hfaSebsdlwYU57CirbYK",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -389,7 +389,7 @@
     "type": "Pitch Event / Demo Day",
     "host": "Pitch Genius",
     "description": "Pitch Genius hosts The 30 Min. Pitch Workshop for Figuring Out Your Hook in Virtual (BOS) during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/2IP1C3kzI9mr0lqtrVYL?",
+    "registrationUrl": "https://partiful.com/e/2IP1C3kzI9mr0lqtrVYL",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -663,7 +663,7 @@
     "type": "Brunch or Lunch",
     "host": "CREWASIS",
     "description": "CREWASIS hosts AI in Enterprise: From Experiment to Impact in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/TyiiDELL5sQjIP8MVjOF?c=DX4XbISF",
+    "registrationUrl": "https://partiful.com/e/TyiiDELL5sQjIP8MVjOF",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -766,7 +766,7 @@
     "type": "Roundtable / Workshop",
     "host": "AI Advisor Guy, Focus Technologies",
     "description": "AI Advisor Guy, Focus Technologies hosts Mastering the EU CRA & AI Act in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/2oiJXiJyAYGZRZvtsEZ6?f=1&photo=all",
+    "registrationUrl": "https://partiful.com/e/2oiJXiJyAYGZRZvtsEZ6",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -866,7 +866,7 @@
     "type": "Networking",
     "host": "MIT.nano",
     "description": "MIT.nano hosts Hard-Tech Innovation & MIT.nano in Kendall Square during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/dU8YDPenYQbh8Zp6Lqb4?c=LHIyrK8o",
+    "registrationUrl": "https://partiful.com/e/dU8YDPenYQbh8Zp6Lqb4",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -1004,7 +1004,7 @@
     "type": "Experiential",
     "host": "Two Lanterns Venture Capital, Silicon Valley Bank (SVB)",
     "description": "Two Lanterns Venture Capital, Silicon Valley Bank (SVB) hosts Founders Revolutionary Tour in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/RyqWWOYVhrp7R2VAmtiY?c=0sAnh_-o",
+    "registrationUrl": "https://partiful.com/e/RyqWWOYVhrp7R2VAmtiY",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -1301,7 +1301,7 @@
     "type": "Happy Hour",
     "host": "FoundersEdge, Koru Capital",
     "description": "FoundersEdge, Koru Capital hosts VC Investor Happy Hour in North End during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/OVqaGkkARAh35EGwojM9?c=REGL9mRF",
+    "registrationUrl": "https://partiful.com/e/OVqaGkkARAh35EGwojM9",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -1597,7 +1597,7 @@
     "type": "Happy Hour",
     "host": "Taco Tech Tuesday",
     "description": "Taco Tech Tuesday hosts Taco Tech Tuesday: in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/r9Vaor5p706ZGJYDbb46?source=share&c=nppfjebv",
+    "registrationUrl": "https://partiful.com/e/r9Vaor5p706ZGJYDbb46",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -1714,7 +1714,7 @@
     "type": "Panel / Fireside Chat",
     "host": "Two Lanterns Venture Capital, OSS Ventures",
     "description": "Two Lanterns Venture Capital, OSS Ventures hosts 2LVC x OSS: Investor Dinner & Fireside Chat in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/N0GDRp8irDf7upNceuJx?c=_uAdkPHe",
+    "registrationUrl": "https://partiful.com/e/N0GDRp8irDf7upNceuJx",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -2004,7 +2004,7 @@
     "type": "Happy Hour",
     "host": "Boston Product Management Association",
     "description": "Boston Product Management Association hosts The Boston Product Playbook: Building Product in a City That Punches Above Its Weight in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/T7IwkS8Q8F8lgYwwgibQ?c=Pza_c0Ku",
+    "registrationUrl": "https://partiful.com/e/T7IwkS8Q8F8lgYwwgibQ",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -2024,7 +2024,7 @@
     "type": "Happy Hour",
     "host": "Creator Tech.AI, GlobalAIFilmHack",
     "description": "Creator Tech.AI, GlobalAIFilmHack hosts The New Creative Stack: How AI Is Reshaping Content in Virtual (BOS) during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/B2eihp3dWFqYYcsUf2iG?c=gmGv3cNz",
+    "registrationUrl": "https://partiful.com/e/B2eihp3dWFqYYcsUf2iG",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -2234,7 +2234,7 @@
     "type": "Dinner",
     "host": "Wix Ventures, C-House",
     "description": "Wix Ventures, C-House hosts Taste: The Human Skill AI Can't Automate (Yet...) in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/jQYngS6Va9leqfcYYGsK?c=cK92QbtL",
+    "registrationUrl": "https://partiful.com/e/jQYngS6Va9leqfcYYGsK",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -2311,7 +2311,7 @@
     "type": "Experiential",
     "host": "Formation Bio",
     "description": "Formation Bio hosts Runtime in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/FJXCHsTzgGQQQwt1qWGG?c=9LeWlJGP",
+    "registrationUrl": "https://partiful.com/e/FJXCHsTzgGQQQwt1qWGG",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -2370,7 +2370,7 @@
     "type": "Breakfast",
     "host": "Alt-Black",
     "description": "Alt-Black hosts Brewing Connections: Colombian Coffee Tasting in Brookline during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/2ZAP0h9UpFA6Kld1ZsCQ?c=UIaCbFZd",
+    "registrationUrl": "https://partiful.com/e/2ZAP0h9UpFA6Kld1ZsCQ",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -2446,7 +2446,7 @@
     "type": "Breakfast",
     "host": "Insperity, Branch Venture Group",
     "description": "Insperity, Branch Venture Group hosts Founders & Funders in Food & Ag in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/dWQkRrJbv7CIP1hVclIA?c=MDO8hkbE",
+    "registrationUrl": "https://partiful.com/e/dWQkRrJbv7CIP1hVclIA",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -2668,7 +2668,7 @@
     "type": "Breakfast",
     "host": "RealPact AI, RealPact",
     "description": "RealPact AI, RealPact hosts Product Launch of RealPact AI in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/kV0ZArkcVonUJFlJuGdt?c=AD1WmEgP",
+    "registrationUrl": "https://partiful.com/e/kV0ZArkcVonUJFlJuGdt",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -2706,7 +2706,7 @@
     "type": "Experiential",
     "host": "Fintech Sandbox, Wolf & Co.",
     "description": "Fintech Sandbox, Wolf & Co. hosts The Revolution Started Here in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/GrSlGjHe4vQFMwHwczfE?",
+    "registrationUrl": "https://partiful.com/e/GrSlGjHe4vQFMwHwczfE",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -2725,7 +2725,7 @@
     "type": "Breakfast",
     "host": "Trove",
     "description": "Trove hosts Where Does the Talent Go? in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/LbEtriasonbT4NoKbVxw?c=1BZLR3_-",
+    "registrationUrl": "https://partiful.com/e/LbEtriasonbT4NoKbVxw",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -2746,7 +2746,7 @@
     "type": "Breakfast",
     "host": "Deel, Alumni Ventures, Nanopath",
     "description": "Deel, Alumni Ventures, Nanopath hosts Women's Health Breakfast in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/HHSHwj6EefPW6vGKWE7h?c=lbvgIdZt",
+    "registrationUrl": "https://partiful.com/e/HHSHwj6EefPW6vGKWE7h",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -2804,7 +2804,7 @@
     "type": "Panel / Fireside Chat",
     "host": "Google for Startups",
     "description": "Google for Startups hosts Google Cloud Startups: Healthcare & Life Sciences Summit in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/r15W7xfPhpCKh4AeMlDH?c=XpPUnZDe",
+    "registrationUrl": "https://partiful.com/e/r15W7xfPhpCKh4AeMlDH",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -2924,7 +2924,7 @@
     "type": "Networking",
     "host": "Converge VC, Foley Hoag LLP",
     "description": "Converge VC, Foley Hoag LLP hosts What do Early-Stage B2B Investors Look for in the AI Era? in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/nYwABOB9oay8tl4EvjtG?c=o_jrl42S",
+    "registrationUrl": "https://partiful.com/e/nYwABOB9oay8tl4EvjtG",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -3039,7 +3039,7 @@
     "type": "Brunch or Lunch",
     "host": "Innovate@BU",
     "description": "Innovate@BU hosts Early Career Pathways for Student Entrepreneurs in Virtual (BOS) during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/24PCfYD160CRhx1FWL4y?c=U28dsG7-",
+    "registrationUrl": "https://partiful.com/e/24PCfYD160CRhx1FWL4y",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -3121,7 +3121,7 @@
     "type": "Panel / Fireside Chat",
     "host": "PTC",
     "description": "PTC hosts AI in HardTech Panel in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/V1l1gw9YT7TN9v3YEaLC?c=lH8tBT7b",
+    "registrationUrl": "https://partiful.com/e/V1l1gw9YT7TN9v3YEaLC",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -3181,7 +3181,7 @@
     "type": "Brunch or Lunch",
     "host": "Cherry Hill Advisory",
     "description": "Cherry Hill Advisory hosts Founders' Lunch hosted by Cherry Hill Advisory in Brookline during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/Gnbt53bYR1lDlSCV432R?",
+    "registrationUrl": "https://partiful.com/e/Gnbt53bYR1lDlSCV432R",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -3202,7 +3202,7 @@
     "type": "Experiential",
     "host": "SSC Venture Partners",
     "description": "SSC Venture Partners hosts Supporting Student-Founders in Boston+ in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/qashn4XvlJzS2xiOSbQe?c=ZAnE9D1i",
+    "registrationUrl": "https://partiful.com/e/qashn4XvlJzS2xiOSbQe",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -3222,7 +3222,7 @@
     "type": "Brunch or Lunch",
     "host": "Massachusetts AI Hub, Quantum Alliance",
     "description": "Massachusetts AI Hub, Quantum Alliance hosts The AI Table in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/8cRufEmlqml5b3DwktP0?c=hGgMJGM6",
+    "registrationUrl": "https://partiful.com/e/8cRufEmlqml5b3DwktP0",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -3279,7 +3279,7 @@
     "type": "Brunch or Lunch",
     "host": "Future of Higher Ed (FOHE) Boston, IDEO",
     "description": "Future of Higher Ed (FOHE) Boston, IDEO hosts From AI Hype to Human Impact: Co-Designing the Future of Learning in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/Y9EnoPlvCZpxubbMcDlQ?",
+    "registrationUrl": "https://partiful.com/e/Y9EnoPlvCZpxubbMcDlQ",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -3418,7 +3418,7 @@
     "type": "Brunch or Lunch",
     "host": "Workday, SemperVirens",
     "description": "Workday, SemperVirens hosts Scaling for Growth: Secrets of the Fortune Future 50 in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/OGM2P0booWxlcD1yIVlw?c=Fme6xw3F",
+    "registrationUrl": "https://partiful.com/e/OGM2P0booWxlcD1yIVlw",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -3499,7 +3499,7 @@
     "type": "Matchmaking",
     "host": "FounderWay, TGN Ventures",
     "description": "FounderWay, TGN Ventures hosts Builders Room: Co-Work + Office Hours with Founders & Investors in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/G7J7CV6qewDZa9wm6Yzt?c=uhfW2hl5",
+    "registrationUrl": "https://partiful.com/e/G7J7CV6qewDZa9wm6Yzt",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -3624,7 +3624,7 @@
     "type": "Networking",
     "host": "Maritime Sh",
     "description": "Maritime Sh hosts Build and Deploy Your First AI Agent with Maritime in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/ZXdD60tt19gGfyoOIN79?c=W_NAGjS0",
+    "registrationUrl": "https://partiful.com/e/ZXdD60tt19gGfyoOIN79",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -3682,7 +3682,7 @@
     "type": "Roundtable / Workshop",
     "host": "Greenlight",
     "description": "Greenlight hosts Roundtable: The Rise of Digital Financial Scams in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/ldXpP8nsSUmf7Hg6QFJW?",
+    "registrationUrl": "https://partiful.com/e/ldXpP8nsSUmf7Hg6QFJW",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -3721,7 +3721,7 @@
     "type": "Networking",
     "host": "Workday, Hubspot, Klaviyo",
     "description": "Workday, Hubspot, Klaviyo hosts Scaling the Human + AI Workforce in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/fSoSJAlqltICOxLiGZ7k?",
+    "registrationUrl": "https://partiful.com/e/fSoSJAlqltICOxLiGZ7k",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -3800,7 +3800,7 @@
     "type": "Networking",
     "host": "Valere, 33eleven, Orca Security",
     "description": "Valere, 33eleven, Orca Security hosts Becoming AI-First in 2026 in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/DrBDo76R1XpzJ73fo7zb?c=4Ovwfjew",
+    "registrationUrl": "https://partiful.com/e/DrBDo76R1XpzJ73fo7zb",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -4038,7 +4038,7 @@
     "type": "Experiential",
     "host": "The Ventures",
     "description": "The Ventures hosts The Ventures Startup Award Boston 2026 in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/dEXUM5OzNv5U215zI7DL?c=ea0SOF0q",
+    "registrationUrl": "https://partiful.com/e/dEXUM5OzNv5U215zI7DL",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -4271,7 +4271,7 @@
     "type": "Roundtable / Workshop",
     "host": "Autom8",
     "description": "Autom8 hosts Where Does AI Actually Fit? A Hands-On Founder Roundtable on Business Workflows in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/W9A4V2xdGse2UmepcBXg?f=1",
+    "registrationUrl": "https://partiful.com/e/W9A4V2xdGse2UmepcBXg",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -4290,7 +4290,7 @@
     "type": "Experiential",
     "host": "IBM, The Open Accelerator, Massachusetts AI Hub",
     "description": "IBM, The Open Accelerator, Massachusetts AI Hub hosts Where Wicked Smart Meets Wicked Fast: A Curated Community Evening with The Open Accelerator in Fenway-Kenmore during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/3xi3QmDuMBMQxZnBNbWR?c=fNL0nchx",
+    "registrationUrl": "https://partiful.com/e/3xi3QmDuMBMQxZnBNbWR",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -4329,7 +4329,7 @@
     "type": "Roundtable / Workshop",
     "host": "LeafLabs",
     "description": "LeafLabs hosts AI Safety for HW: Balancing Risk & Innovation in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/cHseq4NsLCDbvaxslZnK?",
+    "registrationUrl": "https://partiful.com/e/cHseq4NsLCDbvaxslZnK",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -4348,7 +4348,7 @@
     "type": "Happy Hour",
     "host": "Matrix, Suno",
     "description": "Matrix, Suno hosts At the Frontier: AI x Creativity in Kendall Square during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/events/EWHX50LnSgk9Iuc7ZU5W/edit",
+    "registrationUrl": "https://partiful.com/events/EWHX50LnSgk9Iuc7ZU5W",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -4699,7 +4699,7 @@
     "type": "Happy Hour",
     "host": "Mendoza Ventures",
     "description": "Mendoza Ventures hosts BMO x Mendoza Impact Rooftop Social in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/Iz31rDO1HW9BuKicd1NC?c=Sws8ZXvJ",
+    "registrationUrl": "https://partiful.com/e/Iz31rDO1HW9BuKicd1NC",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -4737,7 +4737,7 @@
     "type": "Experiential",
     "host": "a16z, Hubspot for Startups",
     "description": "a16z, Hubspot for Startups hosts Building in Boston, featuring HubSpot Co-Founder Brian Halligan in Kendall Square during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/events/UMYqXUS6hFHpUthDhPKk/edit",
+    "registrationUrl": "https://partiful.com/events/UMYqXUS6hFHpUthDhPKk",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -4775,7 +4775,7 @@
     "type": "Happy Hour",
     "host": "Fund Her Network",
     "description": "Fund Her Network hosts Closing the Capital Gap: Founders x Investors in Conversation in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/JZ7iDhDzByF4zSDmRYsE?c=gHNROWSz",
+    "registrationUrl": "https://partiful.com/e/JZ7iDhDzByF4zSDmRYsE",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -4794,7 +4794,7 @@
     "type": "Panel / Fireside Chat",
     "host": "VPE Forum",
     "description": "VPE Forum hosts CTO/VPE Dinner: Evolving the Prod–Eng Partnership in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/RUzK8f52K2juDjL9R8sd?c=K9LcuuZR",
+    "registrationUrl": "https://partiful.com/e/RUzK8f52K2juDjL9R8sd",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -4813,7 +4813,7 @@
     "type": "Happy Hour",
     "host": "FoundersEdge",
     "description": "FoundersEdge hosts Ditch the Deck in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/2A6f866uiX6dzdad1wBf?c=EpkSh_q0",
+    "registrationUrl": "https://partiful.com/e/2A6f866uiX6dzdad1wBf",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -4890,7 +4890,7 @@
     "type": "Happy Hour",
     "host": "Flex, Companyon VC, Suffolk Tech",
     "description": "Flex, Companyon VC, Suffolk Tech hosts Flex x Companyon x Suffolk Tech Rooftop Happy Hour in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/QqnvUjZPPlkGQkzaH7Za?c=dHc2MyIy",
+    "registrationUrl": "https://partiful.com/e/QqnvUjZPPlkGQkzaH7Za",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -4910,7 +4910,7 @@
     "type": "Happy Hour",
     "host": "Entre",
     "description": "Entre hosts Founder & Investor Mixer in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/qdDEurv2RWpBlSgouPxa?c=M5_jjCFL",
+    "registrationUrl": "https://partiful.com/e/qdDEurv2RWpBlSgouPxa",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -5125,7 +5125,7 @@
     "type": "Happy Hour",
     "host": "IncentivesPRO, ALPFA (Association of Latino Professionals for America)",
     "description": "IncentivesPRO, ALPFA (Association of Latino Professionals for America) hosts Roundtrip Capital: Latino Founders Building Back Home in Kendall Square during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/EoELmGOgV7Snr38ajZSU?c=PaxWMI2B",
+    "registrationUrl": "https://partiful.com/e/EoELmGOgV7Snr38ajZSU",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -5144,7 +5144,7 @@
     "type": "Happy Hour",
     "host": "Sentry, Harness",
     "description": "Sentry, Harness hosts Soundcheck w/ Sentry & Harness in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/34IHMgRM7N4iWVOw3AZ9?focus=emailInvite",
+    "registrationUrl": "https://partiful.com/e/34IHMgRM7N4iWVOw3AZ9",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -5182,7 +5182,7 @@
     "type": "Happy Hour",
     "host": "Surflytics",
     "description": "Surflytics hosts Surf Parks & Wave Pools: From Adam Neumann to Mark Zuckerberg in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/QPgGriEJl90mNWSb6OKJ?c=2NgVzfjw",
+    "registrationUrl": "https://partiful.com/e/QPgGriEJl90mNWSb6OKJ",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -5393,7 +5393,7 @@
     "type": "Roundtable / Workshop",
     "host": "Jiffy Labs, Scrut Automation",
     "description": "Jiffy Labs, Scrut Automation hosts What Got You Here Won't Get You There: Security in the AI Era in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/rYlEZvkSLhbLsbhUhJ14?c=UW35J7hG",
+    "registrationUrl": "https://partiful.com/e/rYlEZvkSLhbLsbhUhJ14",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -5450,7 +5450,7 @@
     "type": "Experiential",
     "host": "Founders Basketball",
     "description": "Founders Basketball hosts Founders Basketball in Brighton during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/BdWQHdP3uIHUjM6k26cx?c=zwgh7IAM",
+    "registrationUrl": "https://partiful.com/e/BdWQHdP3uIHUjM6k26cx",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -5490,7 +5490,7 @@
     "type": "Pitch Event / Demo Day",
     "host": "Pitch Lift",
     "description": "Pitch Lift hosts Pitch Lift $100K Challenge in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/mZsIalQDySTOSZeg11CV?",
+    "registrationUrl": "https://partiful.com/e/mZsIalQDySTOSZeg11CV",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -5645,7 +5645,7 @@
     "type": "Dinner",
     "host": "Optivide",
     "description": "Optivide hosts Paid Wildfire Game: Invest in Resilience in Virtual (BOS) during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/wkMB8JkCLoQAb4VZ4y2U?",
+    "registrationUrl": "https://partiful.com/e/wkMB8JkCLoQAb4VZ4y2U",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -5760,7 +5760,7 @@
     "type": "Hackathon",
     "host": "Massachusetts Institute of Technology",
     "description": "Massachusetts Institute of Technology hosts \"Have a Great Summer\" MIT Hackathon in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/vD1pCBjTjJ4Zq8HutiWN?c=ME3tSrQB",
+    "registrationUrl": "https://partiful.com/e/vD1pCBjTjJ4Zq8HutiWN",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -5819,7 +5819,7 @@
     "type": "Hackathon",
     "host": "athenahealth",
     "description": "athenahealth hosts athenahealth: AI for Healthcare Hackathon in Brighton during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/pnph1tPlBXklAB1WVI7U?c=5h9VBTe_",
+    "registrationUrl": "https://partiful.com/e/pnph1tPlBXklAB1WVI7U",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -5838,7 +5838,7 @@
     "type": "Breakfast",
     "host": "Somarae, Stripe, Task Force VA",
     "description": "Somarae, Stripe, Task Force VA hosts COFFEE + CONNECT in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/ZIP2VARKE4wKZDBzmDFD?c=FV1Nr4rh",
+    "registrationUrl": "https://partiful.com/e/ZIP2VARKE4wKZDBzmDFD",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -5897,7 +5897,7 @@
     "type": "Breakfast",
     "host": "One Six 8 Ventures, McCarter & English",
     "description": "One Six 8 Ventures, McCarter & English hosts The MedTech Exit Blueprint in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/noAD9TMCFIBh5o7fUdL3?c=hG2wexXB",
+    "registrationUrl": "https://partiful.com/e/noAD9TMCFIBh5o7fUdL3",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -5954,7 +5954,7 @@
     "type": "Panel / Fireside Chat",
     "host": "Flybridge, The Open Accelerator",
     "description": "Flybridge, The Open Accelerator hosts Agents in Production Panel: Orchestration, On-Device Models, and What's Next? in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/zUA6ddinewnPXurHHEYF?",
+    "registrationUrl": "https://partiful.com/e/zUA6ddinewnPXurHHEYF",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -6014,7 +6014,7 @@
     "type": "Experiential",
     "host": "Osborne Clarke, Northeastern University, British Consulate General, MCS Group",
     "description": "Osborne Clarke, Northeastern University, British Consulate General, MCS Group hosts Global Mindsets: Cultivating Boston-UK Startup and Talent Pipelines in Virtual (BOS) during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/bF88PLmyyuURVs3xaYoX?c=Xrq_fuxo",
+    "registrationUrl": "https://partiful.com/e/bF88PLmyyuURVs3xaYoX",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -6052,7 +6052,7 @@
     "type": "Breakfast",
     "host": "MongoDB",
     "description": "MongoDB hosts MongoDB AI Builder Day in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/SlZvG0XGbjwLzuQR4Tpx?",
+    "registrationUrl": "https://partiful.com/e/SlZvG0XGbjwLzuQR4Tpx",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -6091,7 +6091,7 @@
     "type": "Breakfast",
     "host": "Drive by DraftKings",
     "description": "Drive by DraftKings hosts Rise with Drive by DraftKings - A morning on human performance in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/knA8humo2oUvlJrcf3BL?f=1",
+    "registrationUrl": "https://partiful.com/e/knA8humo2oUvlJrcf3BL",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -6130,7 +6130,7 @@
     "type": "Breakfast",
     "host": "TAY Fitness, Technology Founders of America",
     "description": "TAY Fitness, Technology Founders of America hosts Fitness For Founders: The TAY Way Pro Day in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/othITfx1SR3qYhr3uHMu?c=EGdxXl1P",
+    "registrationUrl": "https://partiful.com/e/othITfx1SR3qYhr3uHMu",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -6168,7 +6168,7 @@
     "type": "Breakfast",
     "host": "BASE-X",
     "description": "BASE-X hosts Future OF Dual USE: What's Pacing Human-Out-Of-The-Loop Autonomy? in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/Uk3sgGuWOmBQJMBEDhOt?c=Mo-48B9W",
+    "registrationUrl": "https://partiful.com/e/Uk3sgGuWOmBQJMBEDhOt",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -6272,7 +6272,7 @@
     "type": "Breakfast",
     "host": "Innospark Ventures",
     "description": "Innospark Ventures hosts The Intersection of AI & Government: What’s Working (And What’s Not) in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/8XGx1D2n5F1kYK1U9SwF?c=Mt5wzkha",
+    "registrationUrl": "https://partiful.com/e/8XGx1D2n5F1kYK1U9SwF",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -6491,7 +6491,7 @@
     "type": "Hackathon",
     "host": "Google Cloud, Google for Startups",
     "description": "Google Cloud, Google for Startups hosts Google for Startup Sprint: ADK 2.0 in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/JzKDNPNjA2zAG7ohxNMm?c=OzpoSSgA",
+    "registrationUrl": "https://partiful.com/e/JzKDNPNjA2zAG7ohxNMm",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -6529,7 +6529,7 @@
     "type": "Brunch or Lunch",
     "host": "Workday, Deloitte, Zuora",
     "description": "Workday, Deloitte, Zuora hosts Closing the AI Monetization Gap in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/zEtUZhOpy4e26wuQaVdp?c=u_-7ACeE",
+    "registrationUrl": "https://partiful.com/e/zEtUZhOpy4e26wuQaVdp",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -6722,7 +6722,7 @@
     "type": "Brunch or Lunch",
     "host": "AWS, Karini AI",
     "description": "AWS, Karini AI hosts Zero Trust AI Agents Live in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/goODloIjgEBAyq6RvqrM?c=cs5YT9IZ",
+    "registrationUrl": "https://partiful.com/e/goODloIjgEBAyq6RvqrM",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -6861,7 +6861,7 @@
     "type": "Experiential",
     "host": "Google for Startups",
     "description": "Google for Startups hosts Google for Startups: Luncheon in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/ISj42bmGx5Ha7h5G0965?c=2muS6YnO",
+    "registrationUrl": "https://partiful.com/e/ISj42bmGx5Ha7h5G0965",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -7216,7 +7216,7 @@
     "type": "Networking",
     "host": "Adobe",
     "description": "Adobe hosts Adobe Presents: Brand Visibility in the AI Era in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/AUcBMXzGCXE7f8n65c6Q?c=EJhL9NYl",
+    "registrationUrl": "https://partiful.com/e/AUcBMXzGCXE7f8n65c6Q",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -7373,7 +7373,7 @@
     "type": "Networking",
     "host": "HSBC",
     "description": "HSBC hosts Next in Care: How AI is Reshaping Healthcare in West End during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/hTsMJ9EKZar9xxhdPIfq?c=RzlpdNIy",
+    "registrationUrl": "https://partiful.com/e/hTsMJ9EKZar9xxhdPIfq",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -7411,7 +7411,7 @@
     "type": "Networking",
     "host": "PwC",
     "description": "PwC hosts Tech me out to the ball game in Fenway-Kenmore during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/FD0zf2unpyz2ylKLxCLv?",
+    "registrationUrl": "https://partiful.com/e/FD0zf2unpyz2ylKLxCLv",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -7452,7 +7452,7 @@
     "type": "Networking",
     "host": "InvoiceCloud",
     "description": "InvoiceCloud hosts The AI Pipeline Playbook: How Modern Sales Teams Build Pipeline Faster in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/rfHyFAJgUQHzlhf4G76n?",
+    "registrationUrl": "https://partiful.com/e/rfHyFAJgUQHzlhf4G76n",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -7925,7 +7925,7 @@
     "type": "Happy Hour",
     "host": "Cityside Construction, William Raveis",
     "description": "Cityside Construction, William Raveis hosts AI, Strategy & the Future of Real Estate in Brookline during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/RPl700cKb2jr8ITQeBdC?c=BY0bCRCO",
+    "registrationUrl": "https://partiful.com/e/RPl700cKb2jr8ITQeBdC",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -7947,7 +7947,7 @@
     "type": "Happy Hour",
     "host": "Boston Healthcare Cloud and AI Community",
     "description": "Boston Healthcare Cloud and AI Community hosts Boshug at Boston Tech Week: Healthcare AI Builders Meetup in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/YWlbiPN8uppUm98K5C82?c=a4NbOn-z",
+    "registrationUrl": "https://partiful.com/e/YWlbiPN8uppUm98K5C82",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -8023,7 +8023,7 @@
     "type": "Experiential",
     "host": "DealRoom",
     "description": "DealRoom hosts Built Different: The Art of Buying & Selling Your Company in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/ho5OA43E0sSxhM9zD7cv?c=ZldQh-K2",
+    "registrationUrl": "https://partiful.com/e/ho5OA43E0sSxhM9zD7cv",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -8103,7 +8103,7 @@
     "type": "Happy Hour",
     "host": "Alumni Ventures, Supabase",
     "description": "Alumni Ventures, Supabase hosts Solo in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/6OWrT8ESdq1I0d2lXCVS?c=FAC-7GOw",
+    "registrationUrl": "https://partiful.com/e/6OWrT8ESdq1I0d2lXCVS",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -8122,7 +8122,7 @@
     "type": "Happy Hour",
     "host": "Somarae",
     "description": "Somarae hosts Somarae Somatic Wellness Event in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/Mm5zOMZb398OwGSA6tkZ?c=fLiVx6bP",
+    "registrationUrl": "https://partiful.com/e/Mm5zOMZb398OwGSA6tkZ",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -8198,7 +8198,7 @@
     "type": "Happy Hour",
     "host": "Modal, Braintrust",
     "description": "Modal, Braintrust hosts AI builders night: Boston in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/1sgpEmvEDCv1Vth4BO82?c=veKX-fq5",
+    "registrationUrl": "https://partiful.com/e/1sgpEmvEDCv1Vth4BO82",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -8274,7 +8274,7 @@
     "type": "Happy Hour",
     "host": "JPMorgan, Pryzm, CSC Leasing",
     "description": "JPMorgan, Pryzm, CSC Leasing hosts Boston Tech Week Defense Tech Happy Hour in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/hXZHVOBiMLY3npFsYoHX?",
+    "registrationUrl": "https://partiful.com/e/hXZHVOBiMLY3npFsYoHX",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -8333,7 +8333,7 @@
     "type": "Happy Hour",
     "host": "CGA Creative",
     "description": "CGA Creative hosts Creative AI: Ask the Experts in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/SZlKWiGmlhtKCeKMQKjx?f=1",
+    "registrationUrl": "https://partiful.com/e/SZlKWiGmlhtKCeKMQKjx",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -8371,7 +8371,7 @@
     "type": "Experiential",
     "host": "Founder 9 Golf Club",
     "description": "Founder 9 Golf Club hosts Founder 9 Golf Club in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/JCyT3Mi3TUcv71mNmDn4?c=58SrIi3V",
+    "registrationUrl": "https://partiful.com/e/JCyT3Mi3TUcv71mNmDn4",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -8530,7 +8530,7 @@
     "type": "Happy Hour",
     "host": "Techstars, Lenny's Newsletter, Strella",
     "description": "Techstars, Lenny's Newsletter, Strella hosts Product Meetup by Lenny's Newsletter in Beacon Hill during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/86OFMs4XUyTef4LoMR6e?c=t9BrYB1T",
+    "registrationUrl": "https://partiful.com/e/86OFMs4XUyTef4LoMR6e",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -8549,7 +8549,7 @@
     "type": "Experiential",
     "host": "7AI, GuidePoint Security, Upwind Security, Cogent Security",
     "description": "7AI, GuidePoint Security, Upwind Security, Cogent Security hosts The Cyber Summer Kickoff Party in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/F7y1kts4KKOksWtf2pZX?c=-iaCs0q7",
+    "registrationUrl": "https://partiful.com/e/F7y1kts4KKOksWtf2pZX",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -8627,7 +8627,7 @@
     "type": "Happy Hour",
     "host": "Wistia",
     "description": "Wistia hosts The Ultimate Marketing Trivia Night! in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/events/kfbPiuO9nMMSMhV3SlRe/edit",
+    "registrationUrl": "https://partiful.com/events/kfbPiuO9nMMSMhV3SlRe",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -8764,7 +8764,7 @@
     "type": "Panel / Fireside Chat",
     "host": "Museum of Science, Boston",
     "description": "Museum of Science, Boston hosts A Reno Family Foundation Symposium: AI and the Future of Cancer Treatments in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/HTnDhiGrTvNGsKTcoUwf?",
+    "registrationUrl": "https://partiful.com/e/HTnDhiGrTvNGsKTcoUwf",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -9075,7 +9075,7 @@
     "type": "Dinner",
     "host": "Optivide",
     "description": "Optivide hosts Climate Tech Night Mixer in Virtual (BOS) during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/events/eqCtHH7qV0zysz4ODtQR/edit",
+    "registrationUrl": "https://partiful.com/events/eqCtHH7qV0zysz4ODtQR",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -9115,7 +9115,7 @@
     "type": "Dinner",
     "host": "BDMT Global",
     "description": "BDMT Global hosts Bdmt Global Boston Live Webinar: Leading Investor Insights and Global Technology Trends - Q2/2026 and Beyond in Virtual (BOS) during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/m0XjQT0rHUSkIFCkv0Xy?c=NpN1F_8r",
+    "registrationUrl": "https://partiful.com/e/m0XjQT0rHUSkIFCkv0Xy",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -9134,7 +9134,7 @@
     "type": "Breakfast",
     "host": "AI Advisor Guy, AgileBrain",
     "description": "AI Advisor Guy, AgileBrain hosts AI + EQ for the Modern Leader in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/JnxtZv6kuRoi1aHVofTF?f=1",
+    "registrationUrl": "https://partiful.com/e/JnxtZv6kuRoi1aHVofTF",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -9232,7 +9232,7 @@
     "type": "Panel / Fireside Chat",
     "host": "Coaching with Farah",
     "description": "Coaching with Farah hosts Charles River Walk & Talk for HR Leaders in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/5SxkaqVwnqpaTJYDeOWu?c=VDqu70SO",
+    "registrationUrl": "https://partiful.com/e/5SxkaqVwnqpaTJYDeOWu",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -9369,7 +9369,7 @@
     "type": "Networking",
     "host": "jadewell, CoApt Projects, Studypop",
     "description": "jadewell, CoApt Projects, Studypop hosts The Experiment in South End during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/fJ48etynmSXObH6E2t1a?c=hWvSgGTR",
+    "registrationUrl": "https://partiful.com/e/fJ48etynmSXObH6E2t1a",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -9569,7 +9569,7 @@
     "type": "Brunch or Lunch",
     "host": "Catalyst Noir",
     "description": "Catalyst Noir hosts The Performance Protocol: Stay Sharp in the Age of AI in Virtual (BOS) during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/UbbwqUQ18E9Io3rXuKS3?",
+    "registrationUrl": "https://partiful.com/e/UbbwqUQ18E9Io3rXuKS3",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -9691,7 +9691,7 @@
     "type": "Roundtable / Workshop",
     "host": "Fundraising Bootcamp, SkyDeck",
     "description": "Fundraising Bootcamp, SkyDeck hosts Future of Robotics Startup Competition in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/tfIqa3mNawYMhGzvLWwt?c=kQJiDWQe",
+    "registrationUrl": "https://partiful.com/e/tfIqa3mNawYMhGzvLWwt",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -9770,7 +9770,7 @@
     "type": "Experiential",
     "host": "Fineline Consultants",
     "description": "Fineline Consultants hosts AI Block Party in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/3CEvtMvadv8UwyTeS5Qo?c=wvQJm0z-",
+    "registrationUrl": "https://partiful.com/e/3CEvtMvadv8UwyTeS5Qo",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -9849,7 +9849,7 @@
     "type": "Pitch Event / Demo Day",
     "host": "Sbur, Inc.",
     "description": "Sbur, Inc. hosts Pitch, Win, and Jet Off to Greece in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/mb7k79beARCW0dLCu7BH?c=eEBqR2mJ",
+    "registrationUrl": "https://partiful.com/e/mb7k79beARCW0dLCu7BH",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -9914,7 +9914,7 @@
     "type": "Networking",
     "host": "Skywork AI",
     "description": "Skywork AI hosts Workflow Delivery in Action: Automate your work with Skywork @ BOSTechWeek in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/hMJXDsXa1dS6QVOckEcY?c=iYj7lQjb",
+    "registrationUrl": "https://partiful.com/e/hMJXDsXa1dS6QVOckEcY",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -10070,7 +10070,7 @@
     "type": "Happy Hour",
     "host": "Boston University, Boston University Faculty of Computing and Data Science",
     "description": "Boston University, Boston University Faculty of Computing and Data Science hosts Frontiers in AI - Best Views in Boston in Back Bay during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/ae9In9lFKYwuAZaWrQKJ?accept-cohost=e5cb9d88-4770-4dd8-8996-fe789ce43454",
+    "registrationUrl": "https://partiful.com/e/ae9In9lFKYwuAZaWrQKJ",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -10302,7 +10302,7 @@
     "type": "Experiential",
     "host": "QueensKnow",
     "description": "QueensKnow hosts Women Who Lead in Tech: A QueensKnow Experience in Downtown during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/hwZlgHcsHGlBTqDJ5b2Q?c=Y9HMwmOp",
+    "registrationUrl": "https://partiful.com/e/hwZlgHcsHGlBTqDJ5b2Q",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -10323,7 +10323,7 @@
     "type": "Hackathon",
     "host": "Harvard Innovation Labs LLX",
     "description": "Harvard Innovation Labs LLX hosts Agentic AI in Healthcare and Life Sciences Hackathon in Allston during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/7EgxT5dc4UzgQL69P1Ht?c=ATdkKo7F",
+    "registrationUrl": "https://partiful.com/e/7EgxT5dc4UzgQL69P1Ht",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -10517,7 +10517,7 @@
     "type": "Hackathon",
     "host": "ntg events",
     "description": "ntg events hosts AI Agents in Healthcare Hackathon in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/pPmyJSqmwakAmHGJrGhG?c=z--6xyil",
+    "registrationUrl": "https://partiful.com/e/pPmyJSqmwakAmHGJrGhG",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -10555,7 +10555,7 @@
     "type": "Panel / Fireside Chat",
     "host": "MakeItSo",
     "description": "MakeItSo hosts Cosmic Playground: Talk, Imagine, Build in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/YwnLunHcyYIPucQr2zcK?c=KTOnWucg",
+    "registrationUrl": "https://partiful.com/e/YwnLunHcyYIPucQr2zcK",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -10789,7 +10789,7 @@
     "type": "Brunch or Lunch",
     "host": "Tech/ish",
     "description": "Tech/ish hosts Zooming Out in Seaport District during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/Hs3MGXOWtM57el79LO2N?f=1",
+    "registrationUrl": "https://partiful.com/e/Hs3MGXOWtM57el79LO2N",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -11081,7 +11081,7 @@
     "type": "Hackathon",
     "host": "ntg events",
     "description": "ntg events hosts OpenClaw in Healthcare Hackathon in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/1NhkX3sqraPVyWGaJ7sj?c=EsKN96Hn",
+    "registrationUrl": "https://partiful.com/e/1NhkX3sqraPVyWGaJ7sj",
     "isFree": true,
     "isInviteOnly": false
   },
@@ -11204,7 +11204,7 @@
     "type": "Networking",
     "host": "Leverage",
     "description": "Leverage hosts AI Agents for Media & Financial Journalism in Cambridge during Boston Tech Week 2026.",
-    "registrationUrl": "https://partiful.com/e/fby63WVVycZHzpoe3J6b?settings=true",
+    "registrationUrl": "https://partiful.com/e/fby63WVVycZHzpoe3J6b",
     "isFree": true,
     "isInviteOnly": false
   },

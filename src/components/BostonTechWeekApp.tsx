@@ -13,6 +13,7 @@ type ScheduleMode = "schedule" | "lineup";
 
 const SAVED_LINEUP_STORAGE_KEY = "btw-2026-saved-lineup";
 const events = eventsData as Event[];
+const validEventIds = new Set(events.map((event) => event.id));
 
 const emptyFilters: ActiveFilters = {
   topics: [],
@@ -143,7 +144,14 @@ export function BostonTechWeekApp() {
       const parsed = JSON.parse(stored) as unknown;
 
       if (Array.isArray(parsed)) {
-        setSavedEventIds(parsed.filter((value): value is string => typeof value === "string"));
+        setSavedEventIds(
+          parsed
+            .filter(
+              (value): value is string =>
+                typeof value === "string" && validEventIds.has(value),
+            )
+            .slice(0, events.length),
+        );
       }
     } catch {
       setSavedEventIds([]);
@@ -151,10 +159,15 @@ export function BostonTechWeekApp() {
   }, []);
 
   useEffect(() => {
-    window.localStorage.setItem(
-      SAVED_LINEUP_STORAGE_KEY,
-      JSON.stringify(savedEventIds),
-    );
+    try {
+      window.localStorage.setItem(
+        SAVED_LINEUP_STORAGE_KEY,
+        JSON.stringify(savedEventIds),
+      );
+    } catch {
+      // Ignore storage write failures so private browsing restrictions
+      // do not break the interactive UI.
+    }
   }, [savedEventIds]);
 
   const eventById = useMemo(() => {

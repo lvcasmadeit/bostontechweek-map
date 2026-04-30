@@ -20,6 +20,23 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Environment
+
+Create a local env file from `.env.example` and set a dedicated Mapbox public token:
+
+```bash
+cp .env.example .env.local
+```
+
+`NEXT_PUBLIC_MAPBOX_TOKEN` is intentionally required at runtime. The app does not ship a fallback token in source.
+
+## Security Notes
+
+- Restrict the Mapbox token in the Mapbox dashboard to your production and preview domains.
+- Keep the token scope minimal and rotate it if it has ever been committed or shared outside the intended team.
+- The map UI is optional at runtime: if the token is missing, the app falls back to the event list instead of exposing a bundled credential.
+- Event registration links are validated before rendering and only `https:` destinations are allowed.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

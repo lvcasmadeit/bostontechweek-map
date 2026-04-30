@@ -14,6 +14,7 @@ import MapboxMap, {
 import type { GeoJSONSource } from "mapbox-gl";
 import type { Feature, FeatureCollection, Point } from "geojson";
 import eventsData from "@/src/data/events.json";
+import { getSafeExternalUrl } from "@/src/lib/security";
 import type { Event } from "@/src/types/events";
 
 type MapViewProps = {
@@ -33,11 +34,7 @@ type EventFeatureProperties = {
 
 type EventFeature = Feature<Point, EventFeatureProperties>;
 
-const DEFAULT_MAPBOX_TOKEN =
-  "pk.eyJ1IjoibHZjYXNtYWRlaXQiLCJhIjoiY21vamo2aG05MDRqeTJ3b2xhZHcyMjVjOCJ9.R3VRtBCpMFxZxNkNgax3aA";
-
-const MAPBOX_TOKEN =
-  process.env.NEXT_PUBLIC_MAPBOX_TOKEN ?? DEFAULT_MAPBOX_TOKEN;
+const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN?.trim() || null;
 
 const BOSTON_VIEW_STATE = {
   longitude: -71.0589,
@@ -111,6 +108,10 @@ export function MapView({
 
   const geoJson = useMemo(() => createEventFeatureCollection(events), [events]);
   const selectedEvent = selectedEventId ? eventById.get(selectedEventId) ?? null : null;
+  const safeRegistrationUrl = useMemo(
+    () => getSafeExternalUrl(selectedEvent?.registrationUrl),
+    [selectedEvent?.registrationUrl],
+  );
 
   useEffect(() => {
     if (!selectedEvent) {
@@ -191,155 +192,170 @@ export function MapView({
           {overlay}
         </div>
       ) : null}
-      <MapboxMap
-        ref={mapRef}
-        mapboxAccessToken={MAPBOX_TOKEN}
-        initialViewState={BOSTON_VIEW_STATE}
-        mapStyle="mapbox://styles/mapbox/dark-v11"
-        interactiveLayerIds={[CLUSTER_LAYER_ID, UNCLUSTERED_LAYER_ID]}
-        onClick={handleMapClick}
-        cursor="pointer"
-        attributionControl={false}
-        reuseMaps
-        style={{ width: "100%", height: "100%", minHeight: "inherit" }}
-      >
-        <NavigationControl position="bottom-right" visualizePitch />
-
-        <Source
-          id={EVENT_SOURCE_ID}
-          type="geojson"
-          data={geoJson}
-          cluster
-          clusterMaxZoom={14}
-          clusterRadius={52}
+      {MAPBOX_TOKEN ? (
+        <MapboxMap
+          ref={mapRef}
+          mapboxAccessToken={MAPBOX_TOKEN}
+          initialViewState={BOSTON_VIEW_STATE}
+          mapStyle="mapbox://styles/mapbox/dark-v11"
+          interactiveLayerIds={[CLUSTER_LAYER_ID, UNCLUSTERED_LAYER_ID]}
+          onClick={handleMapClick}
+          cursor="pointer"
+          attributionControl={false}
+          reuseMaps
+          style={{ width: "100%", height: "100%", minHeight: "inherit" }}
         >
-          <Layer
-            id={CLUSTER_LAYER_ID}
-            type="circle"
-            filter={["has", "point_count"]}
-            paint={{
-              "circle-color": [
-                "step",
-                ["get", "point_count"],
-                "#39ff14",
-                6,
-                "#67ff3d",
-                12,
-                "#a3ff4d",
-              ],
-              "circle-radius": ["step", ["get", "point_count"], 18, 6, 25, 12, 33],
-              "circle-stroke-width": 2,
-              "circle-stroke-color": "#0a0a0a",
-              "circle-opacity": 0.9,
-              "circle-blur": 0.03,
-            }}
-          />
-          <Layer
-            id={CLUSTER_COUNT_LAYER_ID}
-            type="symbol"
-            filter={["has", "point_count"]}
-            layout={{
-              "text-field": ["get", "point_count_abbreviated"],
-              "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
-              "text-size": 12,
-            }}
-            paint={{
-              "text-color": "#050505",
-            }}
-          />
-          <Layer
-            id={UNCLUSTERED_LAYER_ID}
-            type="circle"
-            filter={["!", ["has", "point_count"]]}
-            paint={{
-              "circle-color": "#39ff14",
-              "circle-radius": [
-                "case",
-                ["==", ["get", "eventId"], selectedEventId ?? ""],
-                10,
-                7,
-              ],
-              "circle-stroke-width": 2,
-              "circle-stroke-color": "#050805",
-              "circle-opacity": 0.95,
-              "circle-blur": 0,
-            }}
-          />
-          <Layer
-            id={SELECTED_LAYER_ID}
-            type="circle"
-            filter={[
-              "all",
-              ["!", ["has", "point_count"]],
-              ["==", ["get", "eventId"], selectedEventId ?? ""],
-            ]}
-            paint={{
-              "circle-color": "#39ff14",
-              "circle-radius": 22,
-              "circle-stroke-width": 1,
-              "circle-stroke-color": "#a3ff4d",
-              "circle-opacity": 0.34,
-              "circle-blur": 0.45,
-            }}
-          />
-        </Source>
+          <NavigationControl position="bottom-right" visualizePitch />
 
-        {selectedEvent ? (
-          <Popup
-            longitude={selectedEvent.lng}
-            latitude={selectedEvent.lat}
-            anchor="bottom"
-            closeButton
-            closeOnClick={false}
-            maxWidth="320px"
-            offset={18}
-            onClose={() => onSelectEvent?.(null)}
-            className="tech-week-map-popup"
+          <Source
+            id={EVENT_SOURCE_ID}
+            type="geojson"
+            data={geoJson}
+            cluster
+            clusterMaxZoom={14}
+            clusterRadius={52}
           >
-            <div className="w-[260px] max-w-full overflow-hidden bg-black text-text-primary">
-              <div className="flex items-start justify-between gap-3">
-                <div className="min-w-0 flex-1">
-                  <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-neon-green">
-                    {formatEventTime(selectedEvent)}
-                  </p>
-                  <h3 className="mt-2 break-words pr-1 text-sm font-black uppercase leading-tight">
-                    {selectedEvent.title}
-                  </h3>
+            <Layer
+              id={CLUSTER_LAYER_ID}
+              type="circle"
+              filter={["has", "point_count"]}
+              paint={{
+                "circle-color": [
+                  "step",
+                  ["get", "point_count"],
+                  "#39ff14",
+                  6,
+                  "#67ff3d",
+                  12,
+                  "#a3ff4d",
+                ],
+                "circle-radius": ["step", ["get", "point_count"], 18, 6, 25, 12, 33],
+                "circle-stroke-width": 2,
+                "circle-stroke-color": "#0a0a0a",
+                "circle-opacity": 0.9,
+                "circle-blur": 0.03,
+              }}
+            />
+            <Layer
+              id={CLUSTER_COUNT_LAYER_ID}
+              type="symbol"
+              filter={["has", "point_count"]}
+              layout={{
+                "text-field": ["get", "point_count_abbreviated"],
+                "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+                "text-size": 12,
+              }}
+              paint={{
+                "text-color": "#050505",
+              }}
+            />
+            <Layer
+              id={UNCLUSTERED_LAYER_ID}
+              type="circle"
+              filter={["!", ["has", "point_count"]]}
+              paint={{
+                "circle-color": "#39ff14",
+                "circle-radius": [
+                  "case",
+                  ["==", ["get", "eventId"], selectedEventId ?? ""],
+                  10,
+                  7,
+                ],
+                "circle-stroke-width": 2,
+                "circle-stroke-color": "#050805",
+                "circle-opacity": 0.95,
+                "circle-blur": 0,
+              }}
+            />
+            <Layer
+              id={SELECTED_LAYER_ID}
+              type="circle"
+              filter={[
+                "all",
+                ["!", ["has", "point_count"]],
+                ["==", ["get", "eventId"], selectedEventId ?? ""],
+              ]}
+              paint={{
+                "circle-color": "#39ff14",
+                "circle-radius": 22,
+                "circle-stroke-width": 1,
+                "circle-stroke-color": "#a3ff4d",
+                "circle-opacity": 0.34,
+                "circle-blur": 0.45,
+              }}
+            />
+          </Source>
+
+          {selectedEvent ? (
+            <Popup
+              longitude={selectedEvent.lng}
+              latitude={selectedEvent.lat}
+              anchor="bottom"
+              closeButton
+              closeOnClick={false}
+              maxWidth="320px"
+              offset={18}
+              onClose={() => onSelectEvent?.(null)}
+              className="tech-week-map-popup"
+            >
+              <div className="w-[260px] max-w-full overflow-hidden bg-black text-text-primary">
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[10px] font-extrabold uppercase tracking-[0.18em] text-neon-green">
+                      {formatEventTime(selectedEvent)}
+                    </p>
+                    <h3 className="mt-2 break-words pr-1 text-sm font-black uppercase leading-tight">
+                      {selectedEvent.title}
+                    </h3>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => onToggleSave?.(selectedEvent.id)}
+                    aria-pressed={savedEventIds?.has(selectedEvent.id) ?? false}
+                    className={`inline-flex h-9 w-9 shrink-0 items-center justify-center border transition ${
+                      savedEventIds?.has(selectedEvent.id)
+                        ? "border-neon-green/50 bg-neon-green-muted text-neon-green"
+                        : "border-white/10 text-text-secondary hover:border-neon-green/40 hover:text-neon-green"
+                    }`}
+                  >
+                    {savedEventIds?.has(selectedEvent.id) ? (
+                      <BookmarkCheck size={16} aria-hidden />
+                    ) : (
+                      <Bookmark size={16} aria-hidden />
+                    )}
+                  </button>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => onToggleSave?.(selectedEvent.id)}
-                  aria-pressed={savedEventIds?.has(selectedEvent.id) ?? false}
-                  className={`inline-flex h-9 w-9 shrink-0 items-center justify-center border transition ${
-                    savedEventIds?.has(selectedEvent.id)
-                      ? "border-neon-green/50 bg-neon-green-muted text-neon-green"
-                      : "border-white/10 text-text-secondary hover:border-neon-green/40 hover:text-neon-green"
-                  }`}
-                >
-                  {savedEventIds?.has(selectedEvent.id) ? (
-                    <BookmarkCheck size={16} aria-hidden />
-                  ) : (
-                    <Bookmark size={16} aria-hidden />
-                  )}
-                </button>
+                <p className="mt-2 text-xs font-semibold text-text-secondary">
+                  {selectedEvent.neighborhood}
+                </p>
+                {safeRegistrationUrl ? (
+                  <a
+                    href={safeRegistrationUrl}
+                    target="_blank"
+                    rel="external noopener noreferrer"
+                    referrerPolicy="no-referrer"
+                    className="mt-3 inline-flex border border-neon-green/50 bg-neon-green px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-black transition hover:bg-neon-green-soft"
+                  >
+                    View event
+                  </a>
+                ) : null}
               </div>
-              <p className="mt-2 text-xs font-semibold text-text-secondary">
-                {selectedEvent.neighborhood}
-              </p>
-              {selectedEvent.registrationUrl ? (
-                <a
-                  href={selectedEvent.registrationUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-3 inline-flex border border-neon-green/50 bg-neon-green px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-black transition hover:bg-neon-green-soft"
-                >
-                  View event
-                </a>
-              ) : null}
-            </div>
-          </Popup>
-        ) : null}
-      </MapboxMap>
+            </Popup>
+          ) : null}
+        </MapboxMap>
+      ) : (
+        <div className="absolute inset-0 flex items-center justify-center p-6">
+          <div className="max-w-md border border-amber-400/40 bg-black/80 p-4 text-center shadow-panel-hard backdrop-blur">
+            <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-amber-300">
+              Map unavailable
+            </p>
+            <p className="mt-2 text-sm leading-6 text-text-secondary">
+              Set <code>NEXT_PUBLIC_MAPBOX_TOKEN</code> to enable the interactive map.
+              The event list remains available without shipping a fallback token.
+            </p>
+          </div>
+        </div>
+      )}
 
       <div className="pointer-events-none absolute left-4 top-[4.75rem] z-20 border border-neon-green/30 bg-black/78 px-3 py-2 shadow-neon-soft backdrop-blur md:top-4">
         <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-neon-green">
