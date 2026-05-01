@@ -53,7 +53,7 @@ export const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
         <button
           type="button"
           onClick={() => onSelect(event.id)}
-          className="w-full p-3.5 pr-16 text-left"
+          className="w-full p-3.5 pr-16 text-left focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-neon-green"
         >
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
@@ -112,7 +112,7 @@ export const EventCard = forwardRef<HTMLDivElement, EventCardProps>(
           onClick={() => onToggleSave(event.id)}
           aria-pressed={isSaved}
           aria-label={isSaved ? "Remove from lineup" : "Save to lineup"}
-          className={`absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center rounded-tech border transition ${
+          className={`absolute right-3 top-3 inline-flex h-9 w-9 items-center justify-center rounded-tech border transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neon-green ${
             isSaved
               ? "border-neon-green/50 bg-neon-green-muted text-neon-green"
               : "border-white/10 bg-black/25 text-text-secondary hover:border-neon-green/40 hover:text-neon-green"
