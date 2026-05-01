@@ -64,7 +64,6 @@ export function EventFilters({
     types: false,
     startTimes: false,
   });
-  const [featuredOnly, setFeaturedOnly] = useState(false);
 
   function toggleList(key: FilterKey) {
     setExpandedLists((current) => ({
@@ -149,27 +148,6 @@ export function EventFilters({
                 className="min-w-0 flex-1 bg-transparent text-[14px] text-[#e5e7eb] outline-none placeholder:text-[#8f959d]"
               />
             </label>
-
-            <div className="flex items-center justify-between gap-3">
-              <span className="text-[12px] text-[#9ca3af]">
-                Search featured events only
-              </span>
-              <button
-                type="button"
-                role="switch"
-                aria-checked={featuredOnly}
-                onClick={() => setFeaturedOnly((current) => !current)}
-                className={`relative h-8 w-14 rounded-full transition duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neon-green ${
-                  featuredOnly ? "bg-[#1f7a4d]" : "bg-[#26282c]"
-                }`}
-              >
-                <span
-                  className={`absolute top-1 h-6 w-6 rounded-full bg-[#f3f4f6] transition duration-200 ease-out ${
-                    featuredOnly ? "left-7" : "left-1"
-                  }`}
-                />
-              </button>
-            </div>
           </div>
         </section>
 
