@@ -77,7 +77,7 @@ export function EventFilters({
     <aside
       className={`flex h-full flex-col border border-white/8 bg-[#111214] text-[#e5e7eb] shadow-[12px_0_36px_rgba(0,0,0,0.18)] ${className}`}
     >
-      <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4 pb-24 md:pb-4">
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain px-4 py-4 pb-24 md:pb-4">
         <section className="space-y-6">
           <div className="border border-white/8 bg-[#0d0d0e] p-0.5">
             <div className="grid grid-cols-2 gap-0.5">
@@ -85,7 +85,7 @@ export function EventFilters({
                 type="button"
                 aria-pressed={mode === "schedule"}
                 onClick={() => onModeChange("schedule")}
-                className={`min-h-14 px-4 py-3 text-center text-[12px] font-medium transition duration-200 ease-out ${
+                className={`min-h-14 px-4 py-3 text-center text-[12px] font-medium transition duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-neon-green ${
                   mode === "schedule"
                     ? "bg-[#20390f] text-[#7ccf00]"
                     : "bg-[#090909] text-[#f3f4f6] hover:bg-[#111214]"
@@ -97,7 +97,7 @@ export function EventFilters({
                 type="button"
                 aria-pressed={mode === "lineup"}
                 onClick={() => onModeChange("lineup")}
-                className={`min-h-14 px-4 py-3 text-center text-[12px] font-medium transition duration-200 ease-out ${
+                className={`min-h-14 px-4 py-3 text-center text-[12px] font-medium transition duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-[-2px] focus-visible:outline-neon-green ${
                   mode === "lineup"
                     ? "bg-[#20390f] text-[#7ccf00]"
                     : "bg-[#090909] text-[#f3f4f6] hover:bg-[#111214]"
@@ -122,7 +122,7 @@ export function EventFilters({
                 type="button"
                 onClick={onClear}
                 disabled={!hasActiveFilters}
-                className={`inline-flex items-center gap-1 rounded-[0.35rem] border px-2.5 py-1.5 text-[12px] font-medium transition duration-200 ease-out ${
+                className={`inline-flex items-center gap-1 rounded-[0.35rem] border px-2.5 py-1.5 text-[12px] font-medium transition duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neon-green ${
                   hasActiveFilters
                     ? "border-white/10 text-[#d4d8dd] hover:border-neon-green/40 hover:text-white"
                     : "cursor-not-allowed border-white/6 text-[#6f7580]"
@@ -159,7 +159,7 @@ export function EventFilters({
                 role="switch"
                 aria-checked={featuredOnly}
                 onClick={() => setFeaturedOnly((current) => !current)}
-                className={`relative h-8 w-14 rounded-full transition duration-200 ease-out ${
+                className={`relative h-8 w-14 rounded-full transition duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neon-green ${
                   featuredOnly ? "bg-[#1f7a4d]" : "bg-[#26282c]"
                 }`}
               >
@@ -195,7 +195,7 @@ export function EventFilters({
                         key={value}
                         type="button"
                         onClick={() => onToggleFilter(section.key, value)}
-                        className={`rounded-[0.28rem] border px-3 py-1.5 text-[11px] font-medium transition duration-200 ease-out ${
+                        className={`rounded-[0.28rem] border px-3 py-1.5 text-[11px] font-medium transition duration-200 ease-out focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neon-green ${
                           isActive
                             ? "border-[#51725d] bg-[#213126] text-[#edf7ef]"
                             : "border-[#45484e] bg-[#2a2c30] text-[#c5c8ce] hover:bg-[#32353a]"
@@ -211,7 +211,7 @@ export function EventFilters({
                   <button
                     type="button"
                     onClick={() => toggleList(section.key)}
-                    className="text-[12px] font-medium text-[#9ca3af] transition duration-200 ease-out hover:text-[#d8dde4]"
+                    className="text-[12px] font-medium text-[#9ca3af] transition duration-200 ease-out hover:text-[#d8dde4] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neon-green"
                   >
                     {isExpanded ? "Show less" : "Show more"}
                   </button>

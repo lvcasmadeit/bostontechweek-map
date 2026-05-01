@@ -312,7 +312,7 @@ export function MapView({
                     type="button"
                     onClick={() => onToggleSave?.(selectedEvent.id)}
                     aria-pressed={savedEventIds?.has(selectedEvent.id) ?? false}
-                    className={`inline-flex h-9 w-9 shrink-0 items-center justify-center border transition ${
+                    className={`inline-flex h-9 w-9 shrink-0 items-center justify-center border transition focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neon-green ${
                       savedEventIds?.has(selectedEvent.id)
                         ? "border-neon-green/50 bg-neon-green-muted text-neon-green"
                         : "border-white/10 text-text-secondary hover:border-neon-green/40 hover:text-neon-green"
@@ -334,7 +334,7 @@ export function MapView({
                     target="_blank"
                     rel="external noopener noreferrer"
                     referrerPolicy="no-referrer"
-                    className="mt-3 inline-flex border border-neon-green/50 bg-neon-green px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-black transition hover:bg-neon-green-soft"
+                    className="mt-3 inline-flex border border-neon-green/50 bg-neon-green px-3 py-1.5 text-xs font-black uppercase tracking-[0.12em] text-black transition hover:bg-neon-green-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-neon-green"
                   >
                     View event
                   </a>
@@ -357,7 +357,7 @@ export function MapView({
         </div>
       )}
 
-      <div className="pointer-events-none absolute left-4 top-[4.75rem] z-20 border border-neon-green/30 bg-black/78 px-3 py-2 shadow-neon-soft backdrop-blur md:top-4">
+      <div className="pointer-events-none absolute bottom-20 left-4 z-20 border border-neon-green/30 bg-black/78 px-3 py-2 shadow-neon-soft backdrop-blur">
         <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-neon-green">
           Live Map
         </p>
