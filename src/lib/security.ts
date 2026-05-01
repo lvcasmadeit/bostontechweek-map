@@ -1,4 +1,5 @@
 const ALLOWED_EXTERNAL_PROTOCOLS = new Set(["https:"]);
+const MAPBOX_PUBLIC_TOKEN_PATTERN = /^pk\.[A-Za-z0-9._-]+$/;
 const PARTIFUL_EDIT_PATH_PATTERN = /\/edit\/?$/;
 
 export function getSafeExternalUrl(url: string | null | undefined): string | null {
@@ -23,4 +24,16 @@ export function getSafeExternalUrl(url: string | null | undefined): string | nul
   } catch {
     return null;
   }
+}
+
+export function getSafeMapboxPublicToken(
+  token: string | null | undefined,
+): string | null {
+  if (!token) {
+    return null;
+  }
+
+  const trimmedToken = token.trim();
+
+  return MAPBOX_PUBLIC_TOKEN_PATTERN.test(trimmedToken) ? trimmedToken : null;
 }

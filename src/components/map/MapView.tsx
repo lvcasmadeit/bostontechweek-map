@@ -14,7 +14,10 @@ import MapboxMap, {
 import type { GeoJSONSource, Map as MapboxMapInstance } from "mapbox-gl";
 import type { Feature, FeatureCollection, Point } from "geojson";
 import eventsData from "@/src/data/events.json";
-import { getSafeExternalUrl } from "@/src/lib/security";
+import {
+  getSafeExternalUrl,
+  getSafeMapboxPublicToken,
+} from "@/src/lib/security";
 import type { Event } from "@/src/types/events";
 
 type MapViewProps = {
@@ -34,7 +37,7 @@ type EventFeatureProperties = {
 
 type EventFeature = Feature<Point, EventFeatureProperties>;
 
-const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN?.trim() || null;
+const MAPBOX_TOKEN = getSafeMapboxPublicToken(process.env.NEXT_PUBLIC_MAPBOX_TOKEN);
 
 const BOSTON_VIEW_STATE = {
   longitude: -71.0589,
