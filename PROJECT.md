@@ -1,29 +1,31 @@
 # Project: Boston Tech Week 2026 Interactive Map
 
-## Status Snapshot
+## Current-State Snapshot
 
 - Initialized: 2026-04-28
-- Current phase: MVP hardening and product refactor planning
-- Scaffold status: complete
-- App status: implemented and building successfully
-- Verification status: `npm run lint` and `npm run build` pass
-- Data status: static `events.json` and `filters.json` are in active use by the app
+- Phase: MVP hardening and map-first refactor planning
+- App status: implemented and production-buildable
+- Verification: `npm run lint` and `npm run build` pass
+- Stack: Next.js 15, React 19, TypeScript, Tailwind CSS 4, Mapbox via `react-map-gl`
+- Data model: static `src/data/events.json` plus `src/data/filters.json`
 
-## What Exists Today
+## Implementation Audit
 
-The current application already delivers most of the originally planned MVP:
+The repository is beyond setup and already delivers the core event discovery experience.
 
-- Interactive Mapbox map centered on Boston/Cambridge
-- Clustered markers with event popup interactions
-- Sidebar filter experience with multi-select controls
-- Search across event metadata
-- Date switching for May 26-31
-- Map view and list view toggle
-- Saved lineup flow using local storage
-- Responsive behavior with a mobile filter sheet
-- Safe registration link rendering and baseline security headers
+Implemented today:
 
-## Core App Files
+- Interactive Boston/Cambridge map with clustered markers
+- Map and list view toggle
+- Date browsing for May 26-31, 2026
+- Multi-select filters for topics, neighborhoods, types, and start-time buckets
+- Text search across event metadata
+- Saved lineup backed by local storage
+- Event selection synced between list and map
+- Responsive layout with a mobile filter sheet
+- Graceful non-map fallback when a local map token is not configured
+
+Primary implementation files:
 
 - `app/page.tsx`
 - `app/layout.tsx`
@@ -36,135 +38,61 @@ The current application already delivers most of the originally planned MVP:
 - `src/data/events.json`
 - `src/data/filters.json`
 
-## Original Plan vs Current Reality
+## What Changed Since The Original Plan
 
-The original plan assumed the project was still in setup, but the repository has moved well past that point.
+The older version of this project document described a repo that had not yet been scaffolded. That is no longer accurate.
 
-No longer accurate from the previous version of this file:
+Outdated assumptions from the original plan:
 
-- “Planning & Setup” as the main phase
-- “Scaffold: Not yet created”
-- “filters.json ready” as the main data milestone
+- The project is not in planning/setup anymore
+- The scaffold already exists
+- The data work is beyond just having `filters.json`
 
-Accurate current framing:
+Accurate framing now:
 
-- The app exists and works
-- The main needs are product refinement, codebase cleanup, data quality, and release confidence
+- The product exists as a working prototype
+- The main work is refinement, cleanup, validation, and safe iteration
 
-## Product Goals
-
-### Primary Goals
-
-- Make event discovery feel immediate and spatial
-- Keep map and list views tightly synchronized
-- Preserve fast filtering across hundreds of events
-- Deliver a polished mobile and desktop experience
-- Keep the app reliable even without a Mapbox token
-
-### Nice-to-Haves After MVP Hardening
-
-- Automated data refresh pipeline
-- Sharable URLs for filters and saved state
-- Calendar export
-- Smarter recommendations
-
-### Non-Goals
-
-- Full backend/auth system for MVP
-- Real-time RSVP management
-
-## Current Risks and Gaps
+## Known Gaps
 
 ### Product / UX
 
-- The “featured events only” toggle exists in the UI but is not connected to app state or data
-- The current layout is strong, but the next major product change is a map-first full-screen overlay model
+- The filter panel includes a “featured events only” toggle that is currently not wired into filtering behavior
+- The full-screen map overlay refactor is underway and remains a key coordination point across UI, cleanup, and QA work
 
 ### Codebase
 
-- `src/components/EventMap.tsx` appears to be a legacy component and is not the active map implementation
-- There are no automated tests
+- `src/components/EventMap.tsx` appears to be a legacy component and is not the active map path
+- There are no automated tests or browser regression checks in the repo yet
 
 ### Data
 
-- Data is static and not backed by a documented refresh pipeline
-- All current events are missing `endTime`
+- Event data is static and not yet backed by a documented refresh pipeline
+- Current event data does not include `endTime`
 - Some events are missing `registrationUrl`
 
-## Priority Order
+## Priority Roadmap
 
 ### P0
 
-- Align repo docs with the actual implementation and active roadmap
-- Resolve the dead-end “featured” product affordance
-- Plan and implement the full-screen overlay map refactor without breaking current behavior
+- Keep repository docs aligned with the live implementation
+- Resolve the dead “featured events only” affordance
+- Implement the full-screen overlay map refactor without breaking existing behavior
 
 ### P1
 
 - Formalize data validation and refresh workflows
-- Add automated tests and CI coverage around key product behavior
+- Add automated tests and CI around key product flows
 
 ### P2
 
-- Sharable state, metadata polish, launch QA, and post-MVP enhancements
+- Improve shareability, metadata polish, launch QA, and post-MVP enhancements
 
-## Next Steps
+## Specialist Coordination
 
-### 1. UI/UX Agent Prompt
+Detailed specialist role definitions and handoff guidance now live in `AGENTS.md`.
 
-You are the UI/UX + frontend refactor owner for the Boston Tech Week 2026 map application. Your job is to redesign the layout so the map becomes the dominant full-screen canvas and the app controls overlay on top of it, while preserving all current functionality and the existing visual identity wherever possible.
+Current coordination notes:
 
-Context:
-
-- The current app is implemented in `src/components/BostonTechWeekApp.tsx`, `src/components/EventFilters.tsx`, `src/components/EventCard.tsx`, and `src/components/map/MapView.tsx`
-- The current styling direction is a dark, neon-accented, control-panel aesthetic that should be preserved unless overlaying those controls on top of the map creates a clear UX problem
-- The app already supports filters, search, date tabs, list/map switching, event selection, map/list synchronization, and a saved lineup backed by local storage
-
-Refactor requirements:
-
-- Make the map take up the entire primary screen space
-- Overlay the menus and controls on top of the map
-- Keep menu styles and design substantially the same unless overlay placement creates readability, hierarchy, or usability issues
-- All major menus must be hideable
-- Include a hide button using the `-` symbol for hide/collapse interactions
-- Add a clean navigation bar that matches the existing visual language of the menus and app
-- The nav bar must include:
-  - map view with a globe icon
-  - list view with a bullet list icon
-  - favorites with a star icon
-- Favorites must continue to use the existing saved lineup behavior
-- Do not break any current functionality
-- Preserve responsive behavior across desktop and mobile
-- Maintain or improve accessibility, especially focus behavior, contrast, hit areas, and discoverability of hidden panels
-
-Implementation guardrails:
-
-- Do not introduce a new data model unless required
-- Reuse existing state and behavior where possible
-- Prefer layout refactors over broad logic rewrites
-- If an overlay version of the current menu styling feels too heavy or obstructive, make the smallest design changes necessary and explain them
-- Preserve the no-token fallback experience when `NEXT_PUBLIC_MAPBOX_TOKEN` is missing
-
-Deliverables:
-
-- Updated layout implementation
-- Clear show/hide interaction model for overlays
-- Updated responsive behavior
-- A short implementation note describing what changed and why
-- Zero functional regressions in filtering, event selection, saved lineup, date selection, and map/list sync
-
-### 2. Documentation / PM Agent Prompt
-
-Own `README.md` and `PROJECT.md` as living project documents. Keep them aligned with the implementation, document current status and known gaps, and maintain execution-ready prompts for specialist agents. Treat documentation drift as a product risk, not a housekeeping task.
-
-### 3. Frontend Product Cleanup Agent Prompt
-
-Audit the active UI for partial or misleading product affordances. Resolve the current “featured events only” toggle by either implementing it fully with real state/data support or removing it cleanly. Remove or retire unused legacy UI such as `src/components/EventMap.tsx` so contributors have one clear path through the codebase.
-
-### 4. Data Pipeline Agent Prompt
-
-Create a reproducible validation and refresh workflow for `src/data/events.json` and `src/data/filters.json`. Audit missing fields, define schema expectations, and propose any additions needed for future product concepts such as featured events, richer schedule metadata, or better registration status handling.
-
-### 5. QA / Release Agent Prompt
-
-Add automated confidence around the current product. Cover filter logic, saved lineup persistence, no-token map fallback, and URL sanitization in `src/lib/security.ts`. Add CI so future refactors, especially the overlay map redesign, can ship without silent regressions.
+- UI/UX map refactor is underway
+- Frontend cleanup, data pipeline work, documentation maintenance, and QA automation should use `AGENTS.md` as the execution brief
