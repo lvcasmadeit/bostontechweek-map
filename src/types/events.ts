@@ -13,6 +13,6 @@ export interface Event {
   host: string;
   description: string;
   registrationUrl?: string;
-  isFree?: boolean;
-  isInviteOnly?: boolean;
+  isFree: boolean;
+  isInviteOnly: boolean;
 }

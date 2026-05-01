@@ -68,8 +68,10 @@ Accurate framing now:
 ### Data
 
 - Event data is static and not yet backed by a documented refresh pipeline
-- Current event data does not include `endTime`
-- Some events are missing `registrationUrl`
+- Current event data does not include `endTime` for any of the `573` events
+- `89` events are missing `registrationUrl`
+- `8` registration URLs are reused across multiple events and should be reviewed as part of future cleanup
+- `src/data/README.md` now documents the data contract and the `npm run data:sync-filters` / `npm run data:validate` workflow
 
 ## Priority Roadmap
 
@@ -96,3 +98,4 @@ Current coordination notes:
 
 - UI/UX map refactor is underway
 - Frontend cleanup, data pipeline work, documentation maintenance, and QA automation should use `AGENTS.md` as the execution brief
+- Data validation now exists, but `endTime`, `registrationState`, and any future `featured` or `status` fields still need product and data-source coordination before they should be enforced in CI

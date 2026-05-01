@@ -42,6 +42,8 @@ Then open `http://localhost:3000`.
 
 To enable the live map in local development, provide a valid public map token in your local environment configuration.
 
+For data maintenance, run `npm run data:sync-filters` after editing `src/data/events.json`, then `npm run data:validate`.
+
 ## Tech Stack
 
 - Next.js
