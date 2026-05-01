@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "data:sync-filters": "node scripts/data-pipeline.mjs sync-filters",
+    "data:validate": "node scripts/data-pipeline.mjs validate",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
