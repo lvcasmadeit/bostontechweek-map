@@ -11,7 +11,7 @@ import MapboxMap, {
   type MapMouseEvent,
   type MapRef,
 } from "react-map-gl/mapbox";
-import type { GeoJSONSource } from "mapbox-gl";
+import type { GeoJSONSource, Map as MapboxMapInstance } from "mapbox-gl";
 import type { Feature, FeatureCollection, Point } from "geojson";
 import eventsData from "@/src/data/events.json";
 import { getSafeExternalUrl } from "@/src/lib/security";
@@ -45,9 +45,12 @@ const BOSTON_VIEW_STATE = {
 };
 
 const EVENT_SOURCE_ID = "boston-tech-week-events";
+const CLUSTER_GLOW_LAYER_ID = "event-cluster-glow";
 const CLUSTER_LAYER_ID = "event-clusters";
 const CLUSTER_COUNT_LAYER_ID = "event-cluster-count";
+const UNCLUSTERED_GLOW_LAYER_ID = "event-point-glow";
 const UNCLUSTERED_LAYER_ID = "event-points";
+const SELECTED_GLOW_LAYER_ID = "selected-event-glow";
 const SELECTED_LAYER_ID = "selected-event-point";
 
 const dateFormatter = new Intl.DateTimeFormat("en-US", {
@@ -87,6 +90,41 @@ function createEventFeatureCollection(
       },
     })),
   };
+}
+
+function applyMapLabelStyling(map: MapboxMapInstance) {
+  const layers = map.getStyle().layers ?? [];
+
+  for (const layer of layers) {
+    const sourceLayer = "source-layer" in layer ? layer["source-layer"] : undefined;
+    const isRoadLayer =
+      layer.id.includes("road") ||
+      layer.id.includes("street") ||
+      (typeof sourceLayer === "string" &&
+        (sourceLayer.includes("road") || sourceLayer.includes("street")));
+
+    if (!isRoadLayer) {
+      continue;
+    }
+
+    if (layer.type === "line") {
+      map.setPaintProperty(layer.id, "line-color", "#adadad");
+      map.setPaintProperty(layer.id, "line-opacity", 0.92);
+      continue;
+    }
+
+    if (layer.type === "symbol" && layer.id !== CLUSTER_COUNT_LAYER_ID) {
+      map.setPaintProperty(layer.id, "text-color", "ffffff");
+      map.setPaintProperty(layer.id, "text-halo-color", "#000000");
+      map.setPaintProperty(layer.id, "text-halo-width", 1.6);
+      map.setPaintProperty(layer.id, "text-halo-blur", 0.35);
+      continue;
+    }
+
+    if (layer.type === "symbol" && layer.id === CLUSTER_COUNT_LAYER_ID) {
+      map.setPaintProperty(layer.id, "text-color", "#050505");
+    }
+  }
 }
 
 export function MapView({
@@ -200,6 +238,13 @@ export function MapView({
           mapStyle="mapbox://styles/mapbox/dark-v11"
           interactiveLayerIds={[CLUSTER_LAYER_ID, UNCLUSTERED_LAYER_ID]}
           onClick={handleMapClick}
+          onLoad={() => {
+            const map = mapRef.current?.getMap();
+
+            if (map) {
+              applyMapLabelStyling(map);
+            }
+          }}
           cursor="pointer"
           attributionControl={false}
           reuseMaps
@@ -216,6 +261,25 @@ export function MapView({
             clusterRadius={52}
           >
             <Layer
+              id={CLUSTER_GLOW_LAYER_ID}
+              type="circle"
+              filter={["has", "point_count"]}
+              paint={{
+                "circle-color": [
+                  "step",
+                  ["get", "point_count"],
+                  "#39ff14",
+                  6,
+                  "#67ff3d",
+                  12,
+                  "#a3ff4d",
+                ],
+                "circle-radius": ["step", ["get", "point_count"], 28, 6, 36, 12, 48],
+                "circle-opacity": 0.22,
+                "circle-blur": 0.95,
+              }}
+            />
+            <Layer
               id={CLUSTER_LAYER_ID}
               type="circle"
               filter={["has", "point_count"]}
@@ -229,11 +293,9 @@ export function MapView({
                   12,
                   "#a3ff4d",
                 ],
-                "circle-radius": ["step", ["get", "point_count"], 18, 6, 25, 12, 33],
-                "circle-stroke-width": 2,
-                "circle-stroke-color": "#0a0a0a",
-                "circle-opacity": 0.9,
-                "circle-blur": 0.03,
+                "circle-radius": ["step", ["get", "point_count"], 16, 6, 22, 12, 28],
+                "circle-opacity": 0.88,
+                "circle-blur": 0.12,
               }}
             />
             <Layer
@@ -242,7 +304,7 @@ export function MapView({
               filter={["has", "point_count"]}
               layout={{
                 "text-field": ["get", "point_count_abbreviated"],
-                "text-font": ["DIN Offc Pro Medium", "Arial Unicode MS Bold"],
+                "text-font": ["DIN Offc Pro Bold", "Arial Unicode MS Bold"],
                 "text-size": 12,
               }}
               paint={{
@@ -250,7 +312,7 @@ export function MapView({
               }}
             />
             <Layer
-              id={UNCLUSTERED_LAYER_ID}
+              id={UNCLUSTERED_GLOW_LAYER_ID}
               type="circle"
               filter={["!", ["has", "point_count"]]}
               paint={{
@@ -258,13 +320,52 @@ export function MapView({
                 "circle-radius": [
                   "case",
                   ["==", ["get", "eventId"], selectedEventId ?? ""],
-                  10,
-                  7,
+                  22,
+                  16,
                 ],
-                "circle-stroke-width": 2,
-                "circle-stroke-color": "#050805",
-                "circle-opacity": 0.95,
-                "circle-blur": 0,
+                "circle-opacity": [
+                  "case",
+                  ["==", ["get", "eventId"], selectedEventId ?? ""],
+                  0.28,
+                  0.2,
+                ],
+                "circle-blur": 1,
+              }}
+            />
+            <Layer
+              id={UNCLUSTERED_LAYER_ID}
+              type="circle"
+              filter={["!", ["has", "point_count"]]}
+              paint={{
+                "circle-color": [
+                  "case",
+                  ["==", ["get", "eventId"], selectedEventId ?? ""],
+                  "#a3ff4d",
+                  "#7dff63",
+                ],
+                "circle-radius": [
+                  "case",
+                  ["==", ["get", "eventId"], selectedEventId ?? ""],
+                  8.5,
+                  6,
+                ],
+                "circle-opacity": 0.96,
+                "circle-blur": 0.08,
+              }}
+            />
+            <Layer
+              id={SELECTED_GLOW_LAYER_ID}
+              type="circle"
+              filter={[
+                "all",
+                ["!", ["has", "point_count"]],
+                ["==", ["get", "eventId"], selectedEventId ?? ""],
+              ]}
+              paint={{
+                "circle-color": "#39ff14",
+                "circle-radius": 28,
+                "circle-opacity": 0.18,
+                "circle-blur": 1,
               }}
             />
             <Layer
@@ -276,12 +377,10 @@ export function MapView({
                 ["==", ["get", "eventId"], selectedEventId ?? ""],
               ]}
               paint={{
-                "circle-color": "#39ff14",
-                "circle-radius": 22,
-                "circle-stroke-width": 1,
-                "circle-stroke-color": "#a3ff4d",
-                "circle-opacity": 0.34,
-                "circle-blur": 0.45,
+                "circle-color": "#d8ff9a",
+                "circle-radius": 11,
+                "circle-opacity": 0.14,
+                "circle-blur": 0.55,
               }}
             />
           </Source>
