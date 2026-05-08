@@ -3,7 +3,7 @@
 ## Current-State Snapshot
 
 - Initialized: 2026-04-28
-- Phase: MVP hardening and map-first refactor planning
+- Phase: MVP hardening, map-first overlay refactor, and mobile usability polish
 - App status: implemented and production-buildable
 - Verification: `npm run lint` and `npm run build` pass
 - Stack: Next.js 15, React 19, TypeScript, Tailwind CSS 4, Mapbox via `react-map-gl`
@@ -22,7 +22,7 @@ Implemented today:
 - Text search across event metadata
 - Saved lineup backed by local storage
 - Event selection synced between list and map
-- Responsive layout with a mobile filter sheet
+- Responsive full-screen map layout with mobile filter and list overlays
 - Graceful non-map fallback when a local map token is not configured
 
 Primary implementation files:
@@ -59,11 +59,14 @@ Accurate framing now:
 
 - The filter panel includes a “featured events only” toggle that is currently not wired into filtering behavior
 - The full-screen map overlay refactor is underway and remains a key coordination point across UI, cleanup, and QA work
+- Mobile still needs focused usability work around small-screen overlay stacking, touch ergonomics, and viewport-space management when filters, list view, and map controls compete for space
+- The current mobile experience appears functional, but it has not yet been backed by targeted regression coverage across key breakpoints and saved-lineup flows
 
 ### Codebase
 
 - `src/components/EventMap.tsx` appears to be a legacy component and is not the active map path
 - There are no automated tests or browser regression checks in the repo yet
+- Mobile behavior is concentrated in `src/components/BostonTechWeekApp.tsx`, `src/components/EventFilters.tsx`, `src/components/EventCard.tsx`, and `src/components/map/MapView.tsx`
 
 ### Data
 
@@ -78,13 +81,13 @@ Accurate framing now:
 ### P0
 
 - Keep repository docs aligned with the live implementation
-- Resolve the dead “featured events only” affordance
 - Implement the full-screen overlay map refactor without breaking existing behavior
+- Improve mobile usability without regressing desktop map-first behavior
 
 ### P1
 
 - Formalize data validation and refresh workflows
-- Add automated tests and CI around key product flows
+- Add automated tests and CI around key product flows, especially mobile overlays, filters, and saved-lineup behavior
 
 ### P2
 
@@ -96,6 +99,6 @@ Detailed specialist role definitions and handoff guidance now live in `AGENTS.md
 
 Current coordination notes:
 
-- UI/UX map refactor is underway
+- Mobile improvement work should preserve the current visual language and focus on layout behavior, touch interaction, and clear state transitions between map, filters, dates, and list panels
 - Frontend cleanup, data pipeline work, documentation maintenance, and QA automation should use `AGENTS.md` as the execution brief
 - Data validation now exists, but `endTime`, `registrationState`, and any future `featured` or `status` fields still need product and data-source coordination before they should be enforced in CI

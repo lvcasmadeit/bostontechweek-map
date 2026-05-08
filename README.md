@@ -57,6 +57,7 @@ For data maintenance, run `npm run data:sync-filters` after editing `src/data/ev
 Near-term priorities:
 
 - Evolve the layout toward a more immersive full-screen map experience
+- Improve mobile usability for map, filters, and saved-lineup flows
 - Improve data quality and refresh workflows
 - Add automated regression coverage
 - Continue polishing mobile and accessibility behavior
