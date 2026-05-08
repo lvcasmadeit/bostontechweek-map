@@ -15,7 +15,7 @@ This project helps attendees explore events happening across Boston and Cambridg
 
 ## Current Status
 
-The app is already implemented as a working prototype and includes the core event discovery flow. The current focus is refinement, polish, and improving release readiness.
+The app is implemented as a working prototype and includes the core event discovery flow. Event data is fetched from the official Tech Week calendar at build/request time, normalized for the map experience, and backed by a local fallback dataset. The current focus is refinement, data quality, polish, and release readiness.
 
 ## Experience Highlights
 
@@ -27,8 +27,9 @@ The app is already implemented as a working prototype and includes the core even
 
 ## Known Limitations
 
-- Some event metadata is still being cleaned up and enriched
-- The current dataset is maintained statically
+- Some event metadata from the official calendar is still incomplete for map precision and rich descriptions
+- Map coordinates are currently neighborhood-level approximations with deterministic marker spread
+- `src/data/events.json` remains as a fallback dataset rather than the primary live source
 - The interface is actively being refined for a stronger map-first experience
 
 ## Running Locally
@@ -40,9 +41,11 @@ npm run dev
 
 Then open `http://localhost:3000`.
 
-To enable the live map in local development, provide a valid public map token in your local environment configuration.
+To enable the live map in local development, provide `NEXT_PUBLIC_MAPBOX_TOKEN` in your local environment configuration.
 
-For data maintenance, run `npm run data:sync-filters` after editing `src/data/events.json`, then `npm run data:validate`.
+The app fetches Boston events from the official Tech Week calendar through `src/lib/tech-week-events.ts`. `src/data/events.json` is still used as a fallback if the remote calendar request fails, and `src/data/filters.json` remains the static filter vocabulary used by the UI.
+
+If you update fallback data, run `npm run data:sync-filters` and then `npm run data:validate`.
 
 ## Tech Stack
 
@@ -57,7 +60,8 @@ For data maintenance, run `npm run data:sync-filters` after editing `src/data/ev
 Near-term priorities:
 
 - Evolve the layout toward a more immersive full-screen map experience
-- Improve data quality and refresh workflows
+- Improve mobile usability for map, filters, and saved-lineup flows
+- Improve venue-level map precision and event metadata enrichment
 - Add automated regression coverage
 - Continue polishing mobile and accessibility behavior
 

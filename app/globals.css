@@ -129,3 +129,15 @@ input {
 .mapboxgl-ctrl button {
   filter: invert(1);
 }
+
+@keyframes location-warning-fade {
+  0%,
+  18% {
+    color: var(--color-neon-green);
+  }
+
+  72%,
+  100% {
+    color: var(--color-text-secondary);
+  }
+}

@@ -13,7 +13,6 @@ import MapboxMap, {
 } from "react-map-gl/mapbox";
 import type { GeoJSONSource, Map as MapboxMapInstance } from "mapbox-gl";
 import type { Feature, FeatureCollection, Point } from "geojson";
-import eventsData from "@/src/data/events.json";
 import {
   getSafeExternalUrl,
   getSafeMapboxPublicToken,
@@ -22,7 +21,7 @@ import type { Event } from "@/src/types/events";
 
 type MapViewProps = {
   className?: string;
-  events?: Event[];
+  events: Event[];
   onSelectEvent?: (eventId: string | null) => void;
   onToggleSave?: (eventId: string) => void;
   overlay?: ReactNode;
@@ -117,7 +116,7 @@ function applyMapLabelStyling(map: MapboxMapInstance) {
     }
 
     if (layer.type === "symbol" && layer.id !== CLUSTER_COUNT_LAYER_ID) {
-      map.setPaintProperty(layer.id, "text-color", "ffffff");
+      map.setPaintProperty(layer.id, "text-color", "#ffffff");
       map.setPaintProperty(layer.id, "text-halo-color", "#000000");
       map.setPaintProperty(layer.id, "text-halo-width", 1.6);
       map.setPaintProperty(layer.id, "text-halo-blur", 0.35);
@@ -132,14 +131,13 @@ function applyMapLabelStyling(map: MapboxMapInstance) {
 
 export function MapView({
   className = "",
-  events: filteredEvents,
+  events,
   onSelectEvent,
   onToggleSave,
   overlay,
   savedEventIds,
   selectedEventId,
 }: MapViewProps) {
-  const events = filteredEvents ?? (eventsData as Event[]);
   const mapRef = useRef<MapRef>(null);
   const previousSelectedIdRef = useRef<string | null>(null);
 
@@ -459,19 +457,10 @@ export function MapView({
         </div>
       )}
 
-      <div className="pointer-events-none absolute bottom-20 left-4 z-20 border border-neon-green/30 bg-black/78 px-3 py-2 shadow-neon-soft backdrop-blur">
-        <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-neon-green">
-          Live Map
-        </p>
-        <p className="text-sm font-medium text-text-primary">
-          Boston + Cambridge
-        </p>
-      </div>
-      <div className="pointer-events-none absolute bottom-4 left-1/2 z-20 -translate-x-1/2 border border-dark-border bg-black/70 px-3 py-2 text-[11px] font-medium uppercase tracking-[0.14em] text-text-secondary backdrop-blur">
-        LOCATIONS MAY NOT BE ACCURATE
-      </div>
-      <div className="pointer-events-none absolute bottom-4 left-4 z-20 hidden border border-dark-border bg-black/70 px-3 py-2 text-[11px] font-medium uppercase tracking-[0.14em] text-text-secondary backdrop-blur sm:block">
-        <span className="text-neon-green">{events.length}</span> mapped events
+      <div className="pointer-events-none absolute bottom-4 left-1/2 z-20 -translate-x-1/2 border border-neon-green/25 bg-black/72 px-3 py-2 text-[11px] font-medium uppercase tracking-[0.14em] text-text-secondary shadow-[0_0_34px_rgba(57,255,20,0.24)] backdrop-blur">
+        <span className="animate-[location-warning-fade_7s_ease-in-out_infinite]">
+          LOCATIONS MAY NOT BE ACCURATE
+        </span>
       </div>
     </section>
   );

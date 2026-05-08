@@ -38,15 +38,6 @@ export function EventMap({ events, selectedEvent, onSelect }: EventMapProps) {
       <div className="absolute left-[34%] top-0 h-full w-px rotate-[21deg] bg-white/10" />
       <div className="absolute left-[60%] top-0 h-full w-px rotate-[-10deg] bg-white/10" />
 
-      <div className="absolute left-4 top-4 rounded-tech border border-neon-green/30 bg-black/70 px-3 py-2 backdrop-blur">
-        <p className="text-[10px] font-bold uppercase tracking-[0.22em] text-neon-green">
-          Live Map
-        </p>
-        <p className="text-sm font-bold text-text-primary">
-          Boston + Cambridge
-        </p>
-      </div>
-
       {events.map((event) => {
         const isSelected = activeEvent?.id === event.id;
         const position = getMarkerPosition(event);
