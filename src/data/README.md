@@ -1,6 +1,6 @@
 # Data Contract
 
-`src/data/events.json` is the source of truth for Boston Tech Week events. `src/data/filters.json` is a derived artifact that should stay in sync with the current event set.
+Live Boston Tech Week events are fetched and normalized by `src/lib/tech-week-events.ts`. `src/data/events.json` is fallback data used if the official calendar request fails. `src/data/filters.json` is the static filter vocabulary used by the UI and should stay aligned with the official calendar labels/API keys.
 
 ## Event shape
 
@@ -34,19 +34,20 @@ Optional fields supported by the current app:
 - `types`
 - `start_times`
 
-The file should be regenerated from `events.json`, not hand-edited.
+The file is currently static. If fallback data is intentionally refreshed from `events.json`, it can be regenerated with `npm run data:sync-filters`, but live topic/type behavior depends on the official calendar `theme` and `format` filter keys matching these labels.
 
 ## Workflow
 
-1. Update or replace `src/data/events.json`.
-2. Run `npm run data:sync-filters`.
-3. Run `npm run data:validate`.
+1. Prefer updating `src/lib/tech-week-events.ts` when changing live ingestion behavior.
+2. Update or replace `src/data/events.json` only when fallback data needs refreshing.
+3. If fallback event values change, run `npm run data:sync-filters` only when you intentionally want `filters.json` regenerated from fallback data.
+4. Run `npm run data:validate` after fallback data changes.
 
 `data:validate` fails on schema drift or unsafe values and warns on quality gaps that are still tolerated by the current UI.
 
 ## Current audit
 
-Snapshot from May 1, 2026:
+Fallback snapshot from May 1, 2026:
 
 - `573` events total
 - `573` events missing `endTime`
