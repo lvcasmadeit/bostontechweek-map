@@ -457,19 +457,10 @@ export function MapView({
         </div>
       )}
 
-      <div className="pointer-events-none absolute bottom-20 left-4 z-20 border border-neon-green/30 bg-black/78 px-3 py-2 shadow-neon-soft backdrop-blur">
-        <p className="text-[10px] font-medium uppercase tracking-[0.22em] text-neon-green">
-          Live Map
-        </p>
-        <p className="text-sm font-medium text-text-primary">
-          Boston + Cambridge
-        </p>
-      </div>
-      <div className="pointer-events-none absolute bottom-4 left-1/2 z-20 -translate-x-1/2 border border-dark-border bg-black/70 px-3 py-2 text-[11px] font-medium uppercase tracking-[0.14em] text-text-secondary backdrop-blur">
-        LOCATIONS MAY NOT BE ACCURATE
-      </div>
-      <div className="pointer-events-none absolute bottom-4 left-4 z-20 hidden border border-dark-border bg-black/70 px-3 py-2 text-[11px] font-medium uppercase tracking-[0.14em] text-text-secondary backdrop-blur sm:block">
-        <span className="text-neon-green">{events.length}</span> mapped events
+      <div className="pointer-events-none absolute bottom-4 left-1/2 z-20 -translate-x-1/2 border border-neon-green/25 bg-black/72 px-3 py-2 text-[11px] font-medium uppercase tracking-[0.14em] text-text-secondary shadow-[0_0_34px_rgba(57,255,20,0.24)] backdrop-blur">
+        <span className="animate-[location-warning-fade_7s_ease-in-out_infinite]">
+          LOCATIONS MAY NOT BE ACCURATE
+        </span>
       </div>
     </section>
   );

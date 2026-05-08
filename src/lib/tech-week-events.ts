@@ -1,4 +1,5 @@
 import fallbackEvents from "@/src/data/events.json";
+import filters from "@/src/data/filters.json";
 import type { Event } from "@/src/types/events";
 
 const TECH_WEEK_EVENTS_URL =
@@ -32,6 +33,16 @@ type TechWeekEventsPage = {
   results: TechWeekEvent[];
 };
 
+type TechWeekFilterInput = {
+  format?: string[];
+  theme?: string[];
+};
+
+type EventMembership = {
+  topicsBySourceId: Map<string, string[]>;
+  typeBySourceId: Map<string, string>;
+};
+
 const neighborhoodCoordinates: Record<string, { lat: number; lng: number }> = {
   Allston: { lat: 42.3555, lng: -71.1328 },
   "Back Bay": { lat: 42.3503, lng: -71.081 },
@@ -59,7 +70,7 @@ const neighborhoodCoordinates: Record<string, { lat: number; lng: number }> = {
   "West End": { lat: 42.3644, lng: -71.0661 },
 };
 
-function techWeekRequestBody(cursor: number) {
+function techWeekRequestBody(cursor: number, input: TechWeekFilterInput = {}) {
   return {
     "0": {
       city: "boston",
@@ -68,8 +79,8 @@ function techWeekRequestBody(cursor: number) {
       day: "all",
       track: [],
       sponsor: [],
-      theme: [],
-      format: [],
+      theme: input.theme ?? [],
+      format: input.format ?? [],
       location: [],
       time: [],
       host: [],
@@ -78,6 +89,15 @@ function techWeekRequestBody(cursor: number) {
       cursor,
     },
   };
+}
+
+function getTechWeekFacetKey(label: string) {
+  return label
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "")
+    .replace(/-and-/g, "-");
 }
 
 function asString(value: unknown) {
@@ -104,7 +124,10 @@ function getNeighborhood(event: TechWeekEvent) {
   return location || facetLocation || "Virtual (BOS)";
 }
 
-function normalizeTechWeekEvent(event: TechWeekEvent): Event | null {
+function normalizeTechWeekEvent(
+  event: TechWeekEvent,
+  memberships: EventMembership,
+): Event | null {
   const sourceId = String(event.id ?? "");
   const title = asString(event.name);
   const date = asString(event.date);
@@ -122,6 +145,8 @@ function normalizeTechWeekEvent(event: TechWeekEvent): Event | null {
     ?.map((host) => asString(host.label))
     .filter(Boolean);
   const host = hosts?.length ? hosts.join(", ") : asString(event.company) || "Tech Week";
+  const topics = memberships.topicsBySourceId.get(sourceId) ?? [];
+  const type = memberships.typeBySourceId.get(sourceId) ?? "Event";
 
   return {
     id: `tech-week-${sourceId}`,
@@ -132,8 +157,8 @@ function normalizeTechWeekEvent(event: TechWeekEvent): Event | null {
     address: neighborhood === "Virtual (BOS)" ? "Online" : neighborhood,
     lat: coordinates.lat + jitter.lat,
     lng: coordinates.lng + jitter.lng,
-    topics: ["Tech Week"],
-    type: "Event",
+    topics: topics.length ? topics : ["Tech Week"],
+    type,
     host,
     description: `${host} hosts ${title} during Boston Tech Week 2026.`,
     registrationUrl: asString(event.externalHref) || undefined,
@@ -142,13 +167,16 @@ function normalizeTechWeekEvent(event: TechWeekEvent): Event | null {
   };
 }
 
-async function fetchTechWeekEventsPage(cursor: number): Promise<TechWeekEventsPage> {
+async function fetchTechWeekEventsPage(
+  cursor: number,
+  input: TechWeekFilterInput = {},
+): Promise<TechWeekEventsPage> {
   const response = await fetch(TECH_WEEK_EVENTS_URL, {
     method: "POST",
     headers: {
       "content-type": "application/json",
     },
-    body: JSON.stringify(techWeekRequestBody(cursor)),
+    body: JSON.stringify(techWeekRequestBody(cursor, input)),
     next: { revalidate: REVALIDATE_SECONDS },
   });
 
@@ -173,18 +201,73 @@ async function fetchTechWeekEventsPage(cursor: number): Promise<TechWeekEventsPa
   };
 }
 
+async function fetchAllTechWeekEvents(
+  input: TechWeekFilterInput = {},
+): Promise<TechWeekEvent[]> {
+  const firstPage = await fetchTechWeekEventsPage(1, input);
+  const pageCount = Math.ceil(firstPage.total / firstPage.perPage);
+  const remainingPages = await Promise.all(
+    Array.from({ length: Math.max(0, pageCount - 1) }, (_, index) =>
+      fetchTechWeekEventsPage(index + 2, input),
+    ),
+  );
+
+  return [firstPage, ...remainingPages].flatMap((page) => page.results);
+}
+
+async function buildEventMemberships(): Promise<EventMembership> {
+  const topicsBySourceId = new Map<string, string[]>();
+  const typeBySourceId = new Map<string, string>();
+
+  await Promise.all(
+    filters.topics.map(async (topic) => {
+      const events = await fetchAllTechWeekEvents({
+        theme: [getTechWeekFacetKey(topic)],
+      });
+
+      for (const event of events) {
+        const sourceId = String(event.id ?? "");
+
+        if (!sourceId) {
+          continue;
+        }
+
+        const existingTopics = topicsBySourceId.get(sourceId) ?? [];
+
+        if (!existingTopics.includes(topic)) {
+          topicsBySourceId.set(sourceId, [...existingTopics, topic]);
+        }
+      }
+    }),
+  );
+
+  await Promise.all(
+    filters.types.map(async (type) => {
+      const events = await fetchAllTechWeekEvents({
+        format: [getTechWeekFacetKey(type)],
+      });
+
+      for (const event of events) {
+        const sourceId = String(event.id ?? "");
+
+        if (sourceId && !typeBySourceId.has(sourceId)) {
+          typeBySourceId.set(sourceId, type);
+        }
+      }
+    }),
+  );
+
+  return { topicsBySourceId, typeBySourceId };
+}
+
 export async function getBostonTechWeekEvents(): Promise<Event[]> {
   try {
-    const firstPage = await fetchTechWeekEventsPage(1);
-    const pageCount = Math.ceil(firstPage.total / firstPage.perPage);
-    const remainingPages = await Promise.all(
-      Array.from({ length: Math.max(0, pageCount - 1) }, (_, index) =>
-        fetchTechWeekEventsPage(index + 2),
-      ),
-    );
-    const normalizedEvents = [firstPage, ...remainingPages]
-      .flatMap((page) => page.results)
-      .map(normalizeTechWeekEvent)
+    const [events, memberships] = await Promise.all([
+      fetchAllTechWeekEvents(),
+      buildEventMemberships(),
+    ]);
+    const normalizedEvents = events
+      .map((event) => normalizeTechWeekEvent(event, memberships))
       .filter((event): event is Event => event !== null);
 
     if (!normalizedEvents.length) {

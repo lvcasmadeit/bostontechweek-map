@@ -535,6 +535,9 @@ export function BostonTechWeekApp({ initialEvents }: BostonTechWeekAppProps) {
                 <span>Dates</span>
               </button>
             </div>
+            <div className="pointer-events-none self-end rounded-tech border border-dark-border bg-black/70 px-3 py-2 text-[11px] font-medium uppercase tracking-[0.14em] text-text-secondary backdrop-blur">
+              <span className="text-neon-green">{filteredEvents.length}</span> mapped events
+            </div>
           </div>
         </div>
       </div>
