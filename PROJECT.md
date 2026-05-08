@@ -5,7 +5,7 @@
 - Initialized: 2026-04-28
 - Phase: MVP hardening, dynamic data integration, map-first overlay refinement, and mobile usability polish
 - App status: implemented and production-buildable
-- Verification: `npm run lint` and `npm run build` pass
+- Verification: `npm run lint`, `npm run test`, and `npm run build` pass
 - Stack: Next.js 15, React 19, TypeScript, Tailwind CSS 4, Mapbox via `react-map-gl`
 - Data model: official Tech Week calendar fetch via `src/lib/tech-week-events.ts`, local fallback `src/data/events.json`, and static UI filter vocabulary in `src/data/filters.json`
 
@@ -68,8 +68,31 @@ Accurate framing now:
 ### Codebase
 
 - `src/components/EventMap.tsx` appears to be a legacy component and is not the active map path
-- There are no automated tests or browser regression checks in the repo yet
+- Automated Vitest coverage exists for security helpers, the active app shell, saved-lineup persistence, filters, responsive overlay transitions, and the Mapbox-token fallback
 - Mobile behavior is concentrated in `src/components/BostonTechWeekApp.tsx`, `src/components/EventFilters.tsx`, `src/components/EventCard.tsx`, and `src/components/map/MapView.tsx`
+
+## Test Environment Specifications
+
+`src/test/testEnv.ts` is the canonical browser-environment shim for Vitest tests. It is loaded globally by `vitest.setup.ts` after `@testing-library/jest-dom/vitest` and before each test's assertions run.
+
+Required behavior:
+
+- Tests run in `jsdom` through `vitest.config.ts` with `clearMocks`, `restoreMocks`, and `globals` enabled
+- `vitest.setup.ts` must call Testing Library `cleanup()`, `resetTestBrowserState()`, and `vi.useRealTimers()` after each test
+- `setDesktopViewport(isDesktop)` is the only supported test helper for simulating the `(min-width: 768px)` breakpoint used by `BostonTechWeekApp`
+- The `matchMedia` mock must expose modern `addEventListener` / `removeEventListener` and legacy `addListener` / `removeListener` APIs because component code or dependencies may use either form
+- Viewport changes must notify registered media-query listeners with a `MediaQueryListEvent`-compatible object containing `matches` and `media`
+- `resetTestBrowserState()` must restore the mobile viewport default, clear media-query listeners, and clear mocked local storage so tests do not leak browser state
+- The `localStorage` mock must preserve browser-like `Storage` behavior: `length`, `clear`, `getItem`, `key`, `removeItem`, and `setItem`; keys and values must be string-coerced like real `localStorage`
+- `ResizeObserver` is intentionally a no-op mock; tests that need resize-driven layout behavior should assert resulting UI state directly or introduce a targeted observer test helper rather than making the global shim stateful
+- `scrollIntoView` is intentionally mocked as a no-op spy to keep jsdom tests deterministic
+
+QA/TDD expectations:
+
+- Prefer user-observable assertions with Testing Library queries over implementation details
+- Keep Mapbox rendering mocked in component tests unless the test specifically targets Mapbox integration boundaries
+- Add regression coverage before changing mobile overlays, saved-lineup storage, filter behavior, date tabs, or map/list selection sync
+- Keep browser shims minimal and deterministic; add new globals only when production code requires a browser API that jsdom does not provide
 
 ### Data
 
@@ -91,7 +114,7 @@ Accurate framing now:
 ### P1
 
 - Improve official-calendar enrichment, especially venue-level geocoding, descriptions, `endTime`, and registration-state handling
-- Add automated tests and CI around key product flows, especially mobile overlays, filters, and saved-lineup behavior
+- Expand automated tests and CI around key product flows, especially live data enrichment, mobile edge cases, filters, and saved-lineup behavior
 
 ### P2
 

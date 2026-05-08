@@ -161,7 +161,7 @@ async function renderApp({
 
   const user = userEvent.setup();
 
-  render(<BostonTechWeekApp />);
+  render(<BostonTechWeekApp initialEvents={events} />);
 
   await act(async () => {
     await new Promise((resolve) => window.setTimeout(resolve, 450));

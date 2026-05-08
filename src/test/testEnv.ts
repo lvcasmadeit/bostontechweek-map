@@ -1,6 +1,8 @@
 import { vi } from "vitest";
 
-type MediaQueryChangeListener = (event: MediaQueryListEvent) => void;
+type MediaQueryChangeListener =
+  | EventListenerOrEventListenerObject
+  | ((event: MediaQueryListEvent) => void);
 
 let mediaMatches = false;
 const mediaListeners = new Set<MediaQueryChangeListener>();
@@ -15,12 +17,17 @@ export function setDesktopViewport(isDesktop: boolean) {
   } as MediaQueryListEvent;
 
   for (const listener of mediaListeners) {
-    listener(event);
+    if (typeof listener === "function") {
+      listener(event);
+    } else {
+      listener.handleEvent(event);
+    }
   }
 }
 
 export function resetTestBrowserState() {
   setDesktopViewport(false);
+  mediaListeners.clear();
   localStorageState.clear();
 }
 
@@ -40,16 +47,16 @@ const localStorageMock: Storage = {
     localStorageState.clear();
   },
   getItem(key: string) {
-    return localStorageState.get(key) ?? null;
+    return localStorageState.get(String(key)) ?? null;
   },
   key(index: number) {
     return Array.from(localStorageState.keys())[index] ?? null;
   },
   removeItem(key: string) {
-    localStorageState.delete(key);
+    localStorageState.delete(String(key));
   },
   setItem(key: string, value: string) {
-    localStorageState.set(key, value);
+    localStorageState.set(String(key), String(value));
   },
 };
 
@@ -60,17 +67,25 @@ Object.defineProperty(window, "matchMedia", {
     matches: mediaMatches,
     media: query,
     onchange: null,
-    addEventListener: (_type: "change", listener: MediaQueryChangeListener) => {
-      mediaListeners.add(listener);
+    addEventListener: (type: string, listener: MediaQueryChangeListener | null) => {
+      if (type === "change" && listener) {
+        mediaListeners.add(listener);
+      }
     },
-    removeEventListener: (_type: "change", listener: MediaQueryChangeListener) => {
-      mediaListeners.delete(listener);
+    removeEventListener: (type: string, listener: MediaQueryChangeListener | null) => {
+      if (type === "change" && listener) {
+        mediaListeners.delete(listener);
+      }
     },
-    addListener: (listener: MediaQueryChangeListener) => {
-      mediaListeners.add(listener);
+    addListener: (listener: ((event: MediaQueryListEvent) => void) | null) => {
+      if (listener) {
+        mediaListeners.add(listener);
+      }
     },
-    removeListener: (listener: MediaQueryChangeListener) => {
-      mediaListeners.delete(listener);
+    removeListener: (listener: ((event: MediaQueryListEvent) => void) | null) => {
+      if (listener) {
+        mediaListeners.delete(listener);
+      }
     },
     dispatchEvent: () => true,
   })),

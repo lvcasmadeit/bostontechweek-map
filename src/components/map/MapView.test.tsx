@@ -23,7 +23,7 @@ describe("MapView", () => {
 
     const { MapView } = await import("@/src/components/map/MapView");
 
-    render(<MapView />);
+    render(<MapView events={[]} />);
 
     expect(screen.getByText(/map unavailable/i)).toBeInTheDocument();
     expect(screen.getByText(/locations may not be accurate/i)).toBeInTheDocument();
