@@ -13,7 +13,6 @@ import MapboxMap, {
 } from "react-map-gl/mapbox";
 import type { GeoJSONSource, Map as MapboxMapInstance } from "mapbox-gl";
 import type { Feature, FeatureCollection, Point } from "geojson";
-import eventsData from "@/src/data/events.json";
 import {
   getSafeExternalUrl,
   getSafeMapboxPublicToken,
@@ -22,7 +21,7 @@ import type { Event } from "@/src/types/events";
 
 type MapViewProps = {
   className?: string;
-  events?: Event[];
+  events: Event[];
   onSelectEvent?: (eventId: string | null) => void;
   onToggleSave?: (eventId: string) => void;
   overlay?: ReactNode;
@@ -117,7 +116,7 @@ function applyMapLabelStyling(map: MapboxMapInstance) {
     }
 
     if (layer.type === "symbol" && layer.id !== CLUSTER_COUNT_LAYER_ID) {
-      map.setPaintProperty(layer.id, "text-color", "ffffff");
+      map.setPaintProperty(layer.id, "text-color", "#ffffff");
       map.setPaintProperty(layer.id, "text-halo-color", "#000000");
       map.setPaintProperty(layer.id, "text-halo-width", 1.6);
       map.setPaintProperty(layer.id, "text-halo-blur", 0.35);
@@ -132,14 +131,13 @@ function applyMapLabelStyling(map: MapboxMapInstance) {
 
 export function MapView({
   className = "",
-  events: filteredEvents,
+  events,
   onSelectEvent,
   onToggleSave,
   overlay,
   savedEventIds,
   selectedEventId,
 }: MapViewProps) {
-  const events = filteredEvents ?? (eventsData as Event[]);
   const mapRef = useRef<MapRef>(null);
   const previousSelectedIdRef = useRef<string | null>(null);
 

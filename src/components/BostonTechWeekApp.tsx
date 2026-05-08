@@ -11,15 +11,16 @@ import {
 import { EventCard } from "@/src/components/EventCard";
 import { EventFilters, type ActiveFilters } from "@/src/components/EventFilters";
 import { MapView } from "@/src/components/map/MapView";
-import eventsData from "@/src/data/events.json";
 import type { Event } from "@/src/types/events";
 
 type ViewMode = "map" | "list";
 type ScheduleMode = "schedule" | "lineup";
 
 const SAVED_LINEUP_STORAGE_KEY = "btw-2026-saved-lineup";
-const events = eventsData as Event[];
-const validEventIds = new Set(events.map((event) => event.id));
+
+type BostonTechWeekAppProps = {
+  initialEvents: Event[];
+};
 
 const emptyFilters: ActiveFilters = {
   topics: [],
@@ -148,7 +149,7 @@ function PanelHeader({ description, title, onHide }: PanelHeaderProps) {
   );
 }
 
-export function BostonTechWeekApp() {
+export function BostonTechWeekApp({ initialEvents }: BostonTechWeekAppProps) {
   const [activeFilters, setActiveFilters] = useState<ActiveFilters>(emptyFilters);
   const [query, setQuery] = useState("");
   const [scheduleMode, setScheduleMode] = useState<ScheduleMode>("schedule");
@@ -162,6 +163,11 @@ export function BostonTechWeekApp() {
   const [isLoading, setIsLoading] = useState(true);
   const [topDockHeight, setTopDockHeight] = useState(232);
   const topDockRef = useRef<HTMLDivElement | null>(null);
+
+  const validEventIds = useMemo(
+    () => new Set(initialEvents.map((event) => event.id)),
+    [initialEvents],
+  );
 
   useEffect(() => {
     const timeout = window.setTimeout(() => setIsLoading(false), 420);
@@ -227,13 +233,13 @@ export function BostonTechWeekApp() {
               (value): value is string =>
                 typeof value === "string" && validEventIds.has(value),
             )
-            .slice(0, events.length),
+            .slice(0, initialEvents.length),
         );
       }
     } catch {
       setSavedEventIds([]);
     }
-  }, []);
+  }, [initialEvents.length, validEventIds]);
 
   useEffect(() => {
     try {
@@ -248,17 +254,17 @@ export function BostonTechWeekApp() {
   }, [savedEventIds]);
 
   const eventById = useMemo(() => {
-    return new Map(events.map((event) => [event.id, event]));
-  }, []);
+    return new Map(initialEvents.map((event) => [event.id, event]));
+  }, [initialEvents]);
 
   const savedEventIdSet = useMemo(() => new Set(savedEventIds), [savedEventIds]);
   const scopedEvents = useMemo(() => {
     if (scheduleMode === "schedule") {
-      return events;
+      return initialEvents;
     }
 
-    return events.filter((event) => savedEventIdSet.has(event.id));
-  }, [savedEventIdSet, scheduleMode]);
+    return initialEvents.filter((event) => savedEventIdSet.has(event.id));
+  }, [initialEvents, savedEventIdSet, scheduleMode]);
 
   const filteredEvents = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
